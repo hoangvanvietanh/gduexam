@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Tạo đề thi</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/Google-Style-Text-Input.css">
+    <link rel="stylesheet" href="/css/select.css">
+    <link rel="stylesheet" href="/css/Studious-selectbox.css">
+    <script src="/ckeditor5/ckeditor-readonly.js"></script>
+    <style>
+        #Cau_hoi_chon,
+        #list_cau_hoi {
+            float: left;
+            width: 100%;
+            height: 500px;
+            /* margin: 10px; */
+            /* padding: 10px; */
+            /* border: 1px solid black; */
+            overflow: scroll;
+        }
+    </style>
+</head>
+
+<body>
+    <!--Navbar -->
+    <nav class="mb-1 navbar navbar-expand-lg navbar-dark orange lighten-1" style="background-color: #002f69">
+        <a class="navbar-brand" href="#"><b>Gia Dinh University</b></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
+            aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+            <ul class="navbar-nav mr-auto" style="position: absolute;left: 50%;">
+                <li class="nav-item active">
+
+                    <a class="nav-link" href="#">
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto nav-flex-icons">
+                <li class="nav-item avatar">
+                    <a class="nav-link p-0" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <img src="/img/andanh.png" class="rounded-circle z-depth-0" alt="avatar image" height="35">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
+                        aria-labelledby="navbarDropdownMenuLink-55">
+                        <a class="dropdown-item" href="#">Tài khoản</a>
+                        <a class="dropdown-item" href="/users/logout">Đăng xuất</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!--/.Navbar -->
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/admin/home">Trang chủ</a></li>
+                <li class="breadcrumb-item"><a href="/admin/exam">Đề thi</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Tạo đề thi</li>
+            </ol>
+        </nav>
+        <div class="row">
+            <div class="col-md-7">
+                <h3 class="text-center">Tạo đề thi</h3>
+                <h5 class="text-center"><a data-toggle="collapse" href="#collapseInfomation" role="button"
+                        aria-expanded="true" aria-controls="collapseInfomation">
+                        Ẩn/hiện hông tin đề thi
+                    </a></h5>
+
+                <div class="row collapse show" id="collapseInfomation">
+                    <div class="col-sm-6">
+                        <div class="group">
+                            <input class="input" type="text" id="examCode" required>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                               <label class="label">Mã đề</label>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <form style="margin-top: 8px;">
+                                    <div class="field"><select class="form-control"
+                                            style="border: none;border-bottom: 1px solid #757575;" id="subject"
+                                            onchange="chooseSubject()">
+                                            <optgroup label="Chọn môn học" id="list_subject">
+
+                                            </optgroup>
+                                        </select></div>
+                                </form>
+                            </div>
+                        </div>
+
+
+                        <div class="group">
+                            <input class="input" type="text" id="topic" required>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                               <label class="label">Chủ đề</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <form style="margin-top: 8px;">
+                            <div class="field">
+                                <select id="semester" class="form-control input"
+                                    style="border: none;border-bottom: 1px solid #757575;border-radius: 0;">
+                                    <optgroup label="Chọn học kỳ">
+                                        <option value="1" selected="">Học kì 1</option>
+                                        <option value="2">Học kì 2</option>
+                                        <option value="3">Học kì 3</option>
+                                        <option value="4">Học kì 4</option>
+                                        <option value="5">Học kì 5</option>
+                                        <option value="6">Học kì 6</option>
+                                        <option value="7">Học kì 7</option>
+                                        <option value="8">Học kì 8</option>
+                                        <option value="0">Học kì hè</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                        </form>
+                        <div class="group">      
+                               <input class="input" style="margin-top: -16px;" type="number" id="timeOfExam" required>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                               <label class="label">Thời gian làm bài</label>
+                        </div>
+                        <div class="cntr">
+                            <label for="rdo-1" class="btn-radio">
+                                <input type="radio" id="rdo-1" name="status" value="close">
+                                <svg width="20px" height="20px" viewBox="0 0 20 20">
+                                    <circle cx="10" cy="10" r="9"></circle>
+                                    <path
+                                        d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                        class="inner"></path>
+                                    <path
+                                        d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                        class="outer"></path>
+                                </svg>
+                                <span>Trạng thái đóng</span>
+                            </label>
+                            <label for="rdo-2" class="btn-radio">
+                                <input type="radio" id="rdo-2" name="status" value="open" checked>
+                                <svg width="20px" height="20px" viewBox="0 0 20 20">
+                                    <circle cx="10" cy="10" r="9"></circle>
+                                    <path
+                                        d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                        class="inner"></path>
+                                    <path
+                                        d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                        class="outer"></path>
+                                </svg>
+                                <span>Trạng thái mở</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <h4 class="text-center">Danh sách câu hỏi</h4>
+                <div id="Cau_hoi_chon"></div>
+            </div>
+            <div class="col-md-5">
+
+                <h3 class="text-center">Thư viện câu hỏi</h3>
+                <h5 class="text-center"><a data-toggle="collapse" href="#collapseFilterQuestion" role="button"
+                        aria-expanded="true" aria-controls="collapseFilterQuestion">
+                        Ẩn/hiện lọc câu hỏi
+                    </a></h5>
+                <div class="row collapse show" id="collapseFilterQuestion">
+                    <div class="col-sm-12">
+                        <div class="group">
+                            <input style="width: 100%" class="input" type="text" required>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                               <label class="label">Tìm kiếm</label>
+                        </div>
+
+
+                        <!-- <button style="width: 100%;margin-top: 15px" type="button" class="btn btn-primary">Tìm
+                            kiếm</button> -->
+                        <div class="row">
+                            <div class="col">
+                                <form style="margin-top: 8px;">
+                                    <div class="field"><select class="form-control"
+                                            style="border: none;border-bottom: 1px solid #757575;border-radius: 0;"
+                                            id="levelOfQuestion" onchange="chooseLevel()">
+                                            <optgroup label="Chọn mức độ câu hỏi">
+                                                <option value="1" selected> Dễ</option>
+                                                <option value="2">Trung bình</option>
+                                                <option value="3">Khó</option>
+                                                <option value="4">Cực khó</option>
+                                            </optgroup>
+                                        </select></div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <button style="width: 100%;margin-top: 30px" type="button" id="buttonAddExam"
+                            class="btn btn-primary">Tạo đề
+                            thi</button>
+
+                    </div>
+                </div>
+                <h4 style="margin-top: 20px" class="text-center">Danh sách câu hỏi</h4>
+                <div id="list_cau_hoi"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/jquery-3.3.1.slim.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/Studious-selectbox.js"></script>
+    <script src="/business/dataForAdmin.js"></script>
+    <script>
+        var htmlListSubject = "";
+        listSubject.forEach(subject => {
+            htmlListSubject += `<option value="${subject.subject_name}" >${subject.subject_name}</option>`;
+        })
+        list_subject.innerHTML = htmlListSubject;
+
+        var a = [];
+        var questionList = [];
+        var i = 0;
+        var listABC = ["A", "B", "C", "D", "E", "F"];
+        chooseSubject();
+
+        function chooseLevel() {
+            var htmlQuestion = "";
+            var subject = document.getElementById("subject").value;
+            var level = document.getElementById("levelOfQuestion").value;
+            questionListOfData.forEach(data => {
+                if (data.subject == subject) {
+                    data.question_list.forEach(content => {
+                        if (content.level_question == level) {
+                            i++;
+                            var keys = Object.keys(localStorage),
+                                i = keys.length;
+
+                            while (i--) {
+                                var question = localStorage.getItem(keys[i]);
+                                if (question == content.question) {
+                                    //console.log(content.question);
+                                }
+                            }
+                            htmlQuestion += `
+                <div onclick="moveButton(this,'${content.question.replace(/"/g, "dauNhay")}')" >
+                            <tbody width="100%">
+                                <tr>
+                                    <td><b>Câu hỏi: ${content.question} </b></td>
+                                    </br>
+                                </tr>
+                                <input type="hidden" id="CH${i}" value = "${content.question}">
+                `
+                            for (var k = 0; k < content.answer_list.length; k++) {
+                                if (content.answer_list[k] == content.correct_answer) {
+                                    htmlQuestion += `
+            <tr>
+            <td><b>${listABC[k]}. ${content.answer_list[k]}</b></td></br>
+            </tr>
+            `
+                                }
+                                else {
+                                    htmlQuestion += `
+            <tr>
+            <td>${listABC[k]}. ${content.answer_list[k]}</td></br>
+            </tr>
+            `
+                                }
+                            }
+                            htmlQuestion += "</tbody></br></div>";
+                        }
+
+
+                    });
+                }
+            });
+            list_cau_hoi.innerHTML = htmlQuestion;
+        }
+
+
+        function chooseSubject() {
+            console.log("Vao")
+            var stt = 0;
+            var htmlQuestion = "";
+            var subject = document.getElementById("subject").value;
+            var level = document.getElementById("levelOfQuestion").value;
+            questionListOfData.forEach(data => {
+                if (data.subject == subject) {
+                    data.question_list.forEach(content => {
+                        if (content.level_question == level) {
+                            i++;
+                            var keys = Object.keys(localStorage),
+                                i = keys.length;
+
+                            while (i--) {
+                                var question = localStorage.getItem(keys[i]);
+                                if (question == content.question) {
+                                    //console.log(content.question);
+                                }
+                            }
+                            htmlQuestion += `
+                <div onclick="moveButton(this,'${content.question.replace(/"/g, "dauNhay")}')" >
+                            <tbody width="100%">
+                                <tr>
+                                    <td><b>Câu hỏi: <div id="editor${stt}"> ${content.question}</div> </b></td>
+                                    </br>
+                                </tr>
+                                <input type="hidden" id="CH${i}" value = "">
+                `
+                            stt++;
+                            for (var k = 0; k < content.answer_list.length; k++) {
+                                if (content.answer_list[k] == content.correct_answer) {
+                                    htmlQuestion += `
+            <tr>
+            <td><b>${listABC[k]}. <div id="editor${stt}">${content.answer_list[k]}</div></b></td></br>
+            </tr>
+            `
+                                    stt++;
+                                }
+                                else {
+                                    htmlQuestion += `
+            <tr>
+            <td>${listABC[k]}.<div id="editor${stt}"> ${content.answer_list[k]}</div></td></br>
+            </tr>
+            `
+                                    stt++
+                                }
+                            }
+                            htmlQuestion += "</tbody></br></div>";
+                        }
+
+
+                    });
+                }
+            });
+            list_cau_hoi.innerHTML = htmlQuestion;
+            console.log(stt)
+            for (var i = 0; i < stt; i++) {
+                ClassicEditor
+                    .create(document.querySelector(`#editor${i}`), {
+                        toolbar: {
+                            items: [
+                            ]
+                        },
+                        language: 'vi',
+                        licenseKey: '',
+                    })
+                    .then(editor => {
+                        // window.editor = editor;
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            }
+        }
+        var i = 0;
+        function moveButton(elem, value) {
+            var cauHoi = value.replace(new RegExp('dauNhay', 'g'), '"');
+            if ($(elem).parent().attr("id") == "Cau_hoi_chon") {
+                $(elem).detach().appendTo('#list_cau_hoi');
+                //console.log("bo chon");
+                deleteIteamStorage(cauHoi)
+
+            }
+            else {
+                $(elem).detach().appendTo('#Cau_hoi_chon');
+                i++;
+                localStorage.setItem(i, cauHoi);
+            }
+        }
+
+        function allStorage() {
+            var values = [],
+                keys = Object.keys(localStorage),
+                i = keys.length;
+
+            while (i--) {
+                values.push(localStorage.getItem(keys[i]));
+            }
+
+            return values;
+        }
+
+        function deleteIteamStorage(value) {
+            var keys = Object.keys(localStorage),
+                i = keys.length;
+
+            while (i--) {
+                var question = localStorage.getItem(keys[i]);
+                if (question == value) {
+                    localStorage.removeItem(keys[i]);
+                }
+            }
+        }
+
+
+
+        buttonAddExam.onclick = () => {
+            var examCode = document.getElementById("examCode").value;
+            var timeOfExam = document.getElementById("timeOfExam").value;
+            var subject = document.getElementById("subject").value;
+            var topic = document.getElementById("topic").value;
+            var status = "";
+            var semester = $("#semester option:selected").val();
+            var radios = document.getElementsByName('status');
+            var listQuestionOfExam = createListQuestionForExam();
+
+            for (var i = 0, length = radios.length; i < length; i++) {
+                if (radios[i].checked) {
+                    status = radios[i].value;
+                    break;
+                }
+            }
+            createExam(examCode, timeOfExam, subject, topic, status, semester, listQuestionOfExam);
+        }
+
+        function createListQuestionForExam() {
+            var listQuestionOfExam = [];
+            questionListOfData.forEach(data => {
+                data.question_list.forEach(content => {
+                    var keys = Object.keys(localStorage),
+                        i = keys.length;
+                    do {
+                        var question = localStorage.getItem(keys[i]);
+                        if (question == content.question) {
+                            listQuestionOfExam.push(content);
+                        }
+                    } while (i--)
+                })
+            })
+            return listQuestionOfExam;
+        }
+
+        function createExam(examCode, timeOfExam, subject, topic, status, semester, questionList) {
+            var exam = {}
+            exam.exam_code = examCode;
+            exam.topic = topic;
+            exam.time = timeOfExam;
+            exam.semester = semester;
+            exam.status = status;
+            exam.subject = subject;
+            exam.date_created = Get_date_now();
+            exam.question_list = JSON.stringify(questionList);
+            exam.class_take_exam = [];
+            //examList.push(exam);
+            //Them_De_thi(exam);
+            post("/admin/createExam", exam);
+            localStorage.clear();
+            //document.location.href = "/admin/exam";
+
+        }
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150192457-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-150192457-1');
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+.btnThemDe {
+  width: 100%;
+}
+
+.table.fixed_header {
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.table.fixed_header tbody {
+  display: block;
+  /*width: 84%;*/
+  overflow: auto;
+  height: 50vh;
+}
+
+.table.fixed_header th, .table.fixed_header td {
+  text-align: center;
+  width: 183px;
+}
+
+.table.fixed_header thead tr {
+  display: block;
+}
+

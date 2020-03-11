@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Thư viện câu hỏi</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/adquestion.css">
+    <!-- <script src="/ckeditor5/ckeditor-readonly.js"></script> -->
+    <script type="text/javascript" src="/mathjax/MathJax.js?config=MML_SVG-full"></script>
+    <style>
+        
+    </style>
+</head>
+
+<body style="min-height: 75rem;padding-top: 3.5rem;">
+    <!--Navbar -->
+    <nav class="mb-1 navbar navbar-expand-lg navbar-dark fixed-top orange lighten-1"
+        style="padding: 5px;background-color: #002f69">
+        <a class="navbar-brand" href="#"><b>Gia Dinh University</b></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
+            aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+            <ul class="navbar-nav mr-auto" style="position: absolute;left: 50%;">
+                <li class="nav-item active">
+
+                    <a class="nav-link" href="#">
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto nav-flex-icons">
+                <li class="nav-item avatar">
+                    <a class="nav-link p-0" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <img src="/img/andanh.png" class="rounded-circle z-depth-0" alt="avatar image" height="35">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
+                        aria-labelledby="navbarDropdownMenuLink-55">
+                        <a class="dropdown-item" href="#">Tài khoản</a>
+                        <a class="dropdown-item" href="/users/logout">Đăng xuất</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!--/.Navbar -->
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb" style="padding: 5px;">
+                <li class="breadcrumb-item"><a href="/admin/home">Trang chủ</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Danh sách câu hỏi</li>
+            </ol>
+        </nav>
+
+        <div class="row">
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <form style="margin-top: 8px;">
+                            <div class="field"><select class="form-control"
+                                    style="border: none;border-bottom: 1px solid #757575;" id="subject"
+                                    onchange="chooseSubject()">
+                                    <optgroup label="Chọn môn học" id="list_subject">
+
+                                    </optgroup>
+                                </select></div>
+                        </form>
+                    </div>
+                    <div class="col">
+                        <form style="margin-top: 8px;">
+                            <div class="field"><select class="form-control"
+                                    style="border: none;border-bottom: 1px solid #757575;border-radius: 0;"
+                                    id="levelOfQuestion" onchange="chooseLevel()">
+                                    <optgroup label="Chọn mức độ câu hỏi">
+                                        <option value="1" selected> Dễ</option>
+                                        <option value="2">Trung bình</option>
+                                        <option value="3">Khó</option>
+                                        <option value="4">Cực khó</option>
+                                    </optgroup>
+                                </select></div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-6">
+                        <!-- <input type="text" id="search" placeholder="Type to search"> -->
+                        <div class="form-group">
+                            <input type="text" class="form-control" aria-describedby="helpId"
+                                placeholder="Search tất cả dữ liệu......." id="search">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-primary" id="btnQuestionPage" type="button" style="width: 60%;">Tạo câu
+                            hỏi</button>
+                        <button id="buttonExportExcel" type="button" class="btn btn-primary" style="width: 39%;">Export
+                            Excel</button>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table fixed_header" id="mytable">
+                        <thead>
+                            <tr>
+                                <th colspan="2">Câu hỏi</th>
+                                <th>Câu trả lời 1</th>
+                                <th>Câu trả lời 2</th>
+                                <th>Câu trả lời 3</th>
+                                <th>Câu trả lời 4</th>
+                            </tr>
+                        </thead>
+                        <tbody id="noiDung">
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/jquery-3.3.1.slim.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/xlsx.full.min.js"></script>
+    <script src="/js/FileSaver.js"></script>
+    <script src="/business/dataForAdmin.js"></script>
+
+    </script>
+
+    <script>
+        var htmlListSubject = "";
+        listSubject.forEach(subject => {
+            var subjectChossed = localStorage.getItem("subjectChoosed");
+            if(subject.subject_name == subjectChossed)
+            {
+                htmlListSubject += `<option value="${subject.subject_name}" selected>${subject.subject_name}</option>`;
+            }
+            else
+            {
+                htmlListSubject += `<option value="${subject.subject_name}" >${subject.subject_name}</option>`;
+            }
+        })
+        list_subject.innerHTML = htmlListSubject;
+        chooseSubject();
+
+        function chooseLevel() {
+            var htmlListQuestion = "";
+            var subject = document.getElementById("subject").value;
+            var level = document.getElementById("levelOfQuestion").value;
+            questionListOfData.forEach(data => {
+                if (data.subject == subject) {
+                    var stt = 0;
+                    data.question_list.forEach(content => {
+                        if (content.level_question == level) {
+                            htmlListQuestion += `<tr>
+                                <td colspan="2" class="scroll"> ${content.question} </div></td>
+                                
+                                `
+                            content.answer_list.forEach(answer => {
+                                if (answer == content.correct_answer) {
+                                    stt++;
+                                    htmlListQuestion += `<td><b>${answer}</b></div></td>`
+                                }
+                                else {
+                                    stt++;
+                                    htmlListQuestion += `<td>${answer}</div></td>`
+                                }
+                            })
+                            htmlListQuestion += `</tr>`;
+                        }
+                    });
+                }
+            });
+            noiDung.innerHTML = htmlListQuestion;
+        }
+        function chooseSubject() {
+            var htmlListQuestion = "";
+            var subject = document.getElementById("subject").value;
+            var level = document.getElementById("levelOfQuestion").value;
+            var stt = 0;
+            questionListOfData.forEach(data => {
+                if (data.subject == subject) {
+                    data.question_list.forEach(content => {
+                        if (content.level_question == level) {
+                            var contentQuestion = content.question.split("_idquestion")
+                            htmlListQuestion += `<tr>
+                                <td>${contentQuestion[0]}</td>
+                                
+                                `
+                            content.answer_list.forEach(answer => {
+                                var contentAnswer = answer.split("_idquestion")
+                                if (contentAnswer[1] == content.correct_answer) {
+                                    console.log("Đúng nè")
+                                    htmlListQuestion += `<td><b>${contentAnswer[0]}</b></div></td>`
+                                }
+                                else {
+                                    htmlListQuestion += `<td>${contentAnswer[0]}</div></td>`
+                                }
+
+                            })
+                            htmlListQuestion += `</tr>`;
+                        }
+
+                    });
+                }
+            });
+            noiDung.innerHTML = htmlListQuestion;
+            localStorage.setItem("subjectChoosed",subject)
+        }
+
+        
+        btnQuestionPage.onclick = () => {
+            document.location.href = "/admin/createQuestion";
+        }
+
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150192457-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-150192457-1');
+    </script>
+    <script>
+        var wb = XLSX.utils.table_to_book(document.getElementById('mytable'), { sheet: "Sheet JS" });
+        var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'binary' });
+        function s2ab(s) {
+            var buf = new ArrayBuffer(s.length);
+            var view = new Uint8Array(buf);
+            for (var i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+            return buf;
+        }
+        $("#buttonExportExcel").click(function () {
+            saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), 'Danh_sach_cau_hoi.xlsx');
+        });
+    </script>
+    <script>
+        var $rows = $('#noiDung tr');
+        $('#search').keyup(function () {
+            var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+            console.log("ok")
+            $rows.show().filter(function () {
+                var text = xoa_dau($(this).text().replace(/\s+/g, ' ').toLowerCase());
+                return !~text.indexOf(val);
+            }).hide();
+        });
+    </script>
+
+</body>
+
+</html>

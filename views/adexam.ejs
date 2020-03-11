@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Thư viện đề thi</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/adexam.css">
+</head>
+
+<body style="min-height: 75rem;padding-top: 3.5rem;">
+    <!--Navbar -->
+    <nav class="mb-1 navbar navbar-expand-lg navbar-dark fixed-top orange lighten-1"
+        style="padding: 5px;background-color: #002f69">
+        <a class="navbar-brand" href="#"><b>Gia Dinh University</b></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
+            aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+            <ul class="navbar-nav mr-auto" style="position: absolute;left: 50%;">
+                <li class="nav-item active">
+
+                    <a class="nav-link" href="#">
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto nav-flex-icons">
+                <li class="nav-item avatar">
+                    <a class="nav-link p-0" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <img src="/img/andanh.png" class="rounded-circle z-depth-0" alt="avatar image" height="35">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
+                        aria-labelledby="navbarDropdownMenuLink-55">
+                        <a class="dropdown-item" href="#">Tài khoản</a>
+                        <a class="dropdown-item" href="/users/logout">Đăng xuất</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!--/.Navbar -->
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb" style="padding: 5px;">
+                <li class="breadcrumb-item"><a href="/admin/home">Trang chủ</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Danh sách đề thi</li>
+            </ol>
+        </nav>
+        <div class="row">
+            <div class="col">
+                <div class="row">
+                    <div class="col-6">
+                        <!-- <input type="text" id="search" placeholder="Type to search"> -->
+                        <div class="form-group">
+                            <input type="text" class="form-control" aria-describedby="helpId"
+                                placeholder="Search tất cả dữ liệu......." id="search">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-primary" id="btnCreateExam" type="button" style="width: 32%;">Tạo đề
+                            thi</button>
+                        <button class="btn btn-primary" id="btnCreateExamRandom" type="button" style="width: 32%;">Tạo
+                            đề
+                            random</button>
+                        <button id="buttonExportExcel" type="button" class="btn btn-primary" style="width: 32%;">Export
+                            Excel</button>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table fixed_header" id="mytable">
+                        <thead>
+                            <tr>
+                                <th>Mã đề</th>
+                                <th>Môn</th>
+                                <th>Thời gian</th>
+                                <th>Học kỳ</th>
+                                <th>Ngày tạo</th>
+                                <th>Trạng thái</th>
+                                <th>Chỉnh sửa</th>
+                            </tr>
+                        </thead>
+                        <tbody id="noiDung">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="idListExam" value="<%=examList%>">
+    <script src="/js/jquery-3.3.1.slim.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/xlsx.full.min.js"></script>
+    <script src="/js/FileSaver.js"></script>
+    <script>
+        localStorage.clear();
+        btnCreateExam.onclick = () => {
+            document.location.href = "/admin/createExam";
+        }
+        var examList = JSON.parse(idListExam.value);
+        var html = "";
+        examList.forEach(content => {
+
+            html += `<tr>
+                                <td>${content.exam_code}</td>
+                                <td>${content.subject}</td>
+                                <td>${content.time}</td>
+                                <td>${content.semester}</td>
+                                <td>${content.date_created}</td>
+                                <td>${content.status}</td>
+                                <td><button class="btn btn-primary" onclick="buttonEdit('${content.exam_code}')" type="button">+</button></td>
+                            </tr>`
+
+        });
+        noiDung.innerHTML = html;
+
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150192457-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-150192457-1');
+
+
+        function buttonEdit(examCode) {
+            localStorage.clear();
+            localStorage.setItem("examCode", examCode);
+            document.location.href = "/admin/addClassToExam";
+        }
+    </script>
+    <script>
+        var wb = XLSX.utils.table_to_book(document.getElementById('mytable'), { sheet: "Sheet JS" });
+        var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'binary' });
+        function s2ab(s) {
+            var buf = new ArrayBuffer(s.length);
+            var view = new Uint8Array(buf);
+            for (var i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+            return buf;
+        }
+        $("#buttonExportExcel").click(function () {
+            saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), 'Danh_sach_de_thi.xlsx');
+        });
+    </script>
+    <script>
+        var $rows = $('#noiDung tr');
+        $('#search').keyup(function () {
+            var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+            console.log("ok")
+            $rows.show().filter(function () {
+                var text = xoa_dau($(this).text().replace(/\s+/g, ' ').toLowerCase());
+                return !~text.indexOf(val);
+            }).hide();
+        });
+        function xoa_dau(str) {
+            str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+            str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+            str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+            str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+            str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+            str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+            str = str.replace(/đ/g, "d");
+            str = str.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "A");
+            str = str.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, "E");
+            str = str.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "I");
+            str = str.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "O");
+            str = str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "U");
+            str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y");
+            str = str.replace(/Đ/g, "D");
+            return str;
+        }
+
+        btnCreateExamRandom.onclick = () => {
+            document.location.href = "/admin/createExamRandom";
+        }
+    </script>
+</body>
+
+</html>

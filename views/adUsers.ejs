@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Danh sách sinh viên</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/adquestion.css">
+    <link rel="stylesheet" href="/css/Google-Style-Text-Input.css">
+    <link rel="stylesheet" href="/css/select.css">
+    <link rel="stylesheet" href="/css/Studious-selectbox.css">
+</head>
+
+<body style="min-height: 75rem;padding-top: 3.5rem;">
+    <!--Navbar -->
+    <nav class="mb-1 navbar navbar-expand-lg navbar-dark fixed-top orange lighten-1" style="padding: 5px;background-color: #002f69">
+        <a class="navbar-brand" href="#"><b>Gia Dinh University</b></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
+            aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+            <ul class="navbar-nav mr-auto" style="position: absolute;left: 50%;">
+                <li class="nav-item active">
+
+                    <a class="nav-link" href="#">
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto nav-flex-icons">
+                <li class="nav-item avatar">
+                    <a class="nav-link p-0" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <img src="/img/andanh.png" class="rounded-circle z-depth-0" alt="avatar image" height="35">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
+                        aria-labelledby="navbarDropdownMenuLink-55">
+                        <a class="dropdown-item" href="#">Tài khoản</a>
+                        <a class="dropdown-item" href="/users/logout">Đăng xuất</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!--/.Navbar -->
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb" style="padding: 5px;">
+                <li class="breadcrumb-item"><a href="/admin/home">Trang chủ</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Danh sách sinh viên</li>
+            </ol>
+        </nav>
+
+        <div class="row">
+            <div class="col">
+                
+                <div class="row">
+                    <div class="col">
+                        <form style="margin-top: 8px;">
+                            <div class="field"><select class="form-control"
+                                    style="border: none;border-bottom: 1px solid #757575;border-radius: 0;"
+                                    id="myFaculty" onchange="chooseFaculty()">
+                                    <optgroup label="Chọn khoa" id="list_faculty">
+                                    </optgroup>
+                                </select></div>
+                        </form>
+                    </div>
+                    <div class="col">
+                        <form style="margin-top: 8px;">
+                            <div class="field"><select class="form-control"
+                                    style="border: none;border-bottom: 1px solid #757575;border-radius: 0;" id="myClass"
+                                    onchange="chooseClass()">
+                                    <optgroup label="Chọn lớp" id="list_class">
+                                    </optgroup>
+                                </select></div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <!-- <input type="text" id="search" placeholder="Type to search"> -->
+                        <div class="form-group">
+                            <input type="text" class="form-control" aria-describedby="helpId"
+                                placeholder="Search tất cả dữ liệu......." id="search">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <button type="button" class="btn btn-primary" style="width: 60%;" data-toggle="modal"
+                            data-target=".bd-example-modal-xl">Tạo tài khoản</button>
+                        <button id="buttonExportExcel" type="button" class="btn btn-primary" style="width: 39%;">Export
+                            Excel</button>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table fixed_header" id="mytable">
+                        <thead>
+                            <tr>
+                                <th>MSSV</th>
+                                <th>Họ tên</th>
+                                <th>Giới tính</th>
+                                <th>Ngày sinh</th>
+                                <th>Số CMND</th>
+                                <th>Lớp học</th>
+                            </tr>
+                        </thead>
+                        <tbody id="listUsers">
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <form action="/admin/users" method="POST">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="my-modal-title">Tạo tài khoản</h3>
+                        <button class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="group" style="margin-bottom: 45px;"><input id="fullName" class="input"
+                                        type="text" name="fullName" required /><span class="highlight"></span><span
+                                        class="bar"></span><label class="label">Họ tên</label>
+                                </div>
+                                <div class="group" style="margin-bottom: 45px;"><input id="identityCardNumber"
+                                        class="input" type="number" name="identityCardNumber" required /><span
+                                        class="highlight"></span><span class="bar"></span><label class="label">Số chứng
+                                        minh nhân dân</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="group" style="margin-bottom: 45px;"><input id="studentCode" class="input"
+                                        type="number" name="studentCode" required /><span class="highlight"></span><span
+                                        class="bar"></span><label class="label">Mã số sinh viên</label>
+                                </div>
+                                <div class="group"><input id="address" class="input" type="address" name="address"
+                                        required /><span class="highlight"></span><span class="bar"></span><label
+                                        class="label">Địa
+                                        chỉ</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="group" style="margin-bottom: 45px;"><input id="dateOfBirth" class="input"
+                                        type="date" value="2019-01-01" name="dateOfBirth" required /><span
+                                        class="highlight"></span><span class="bar"></span><label class="label">Ngày
+                                        sinh</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="group" style="margin-bottom: 45px;"><input id="placeOfBirth" class="input"
+                                        type="text" name="placeOfBirth" required /><span class="highlight"></span><span
+                                        class="bar"></span><label class="label">Nơi sinh</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div style="margin-top: 8px;">
+                                    <div class="field"><select class="form-control" id="sex" name="sex"
+                                            style="border: none;border-bottom: 1px solid #757575;border-radius: 0;">
+                                            <optgroup label="Chọn giới tính">
+                                                <option value="Nam" selected>Nam</option>
+                                                <option value="Nữ">Nữ</option>
+                                            </optgroup>
+                                        </select></div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div style="margin-top: 8px;">
+                                    <div class="field"><select class="form-control" id="studentStatus"
+                                            name="studentStatus"
+                                            style="border: none;border-bottom: 1px solid #757575;border-radius: 0;">
+                                            <optgroup label="Chọn trạng thái">
+                                                <option value="Đăng ký" selected>Đăng ký</option>
+                                                <option value="Đang học">Đang học</option>
+                                                <option value="Bảo lưu">Bảo lưu</option>
+                                            </optgroup>
+                                        </select></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div style="margin-top: 8px;">
+                                    <div class="field"><select class="form-control" name="myFacultyOnModal"
+                                            style="border: none;border-bottom: 1px solid #757575;border-radius: 0;"
+                                            id="myFacultyOnModal" onchange="chooseFaculty()">
+                                            <optgroup label="Chọn khoa" id="list_faculty_modal">
+                                            </optgroup>
+                                        </select></div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div style="margin-top: 8px;">
+                                    <div class="field"><select class="form-control" name="myClassOnModal"
+                                            style="border: none;border-bottom: 1px solid #757575;border-radius: 0;"
+                                            id="myClassOnModal" onchange="chooseClass()">
+                                            <optgroup label="Chọn lớp" id="list_class_modal">
+                                            </optgroup>
+                                        </select></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" style="width: 100%;" class="btn btn-primary" id="btnCreateAccount">Đồng
+                            ý</button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="/js/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"
+        integrity="sha256-8WqyJLuWKRBVhxXIL1jBDD7SDxU936oZkCnxQbWwJVw=" crossorigin="anonymous"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/Studious-selectbox.js"></script>
+    <script src="/js/xlsx.full.min.js"></script>
+    <script src="/js/FileSaver.js"></script>
+    <script src="/business/dataForAdmin.js"></script>
+    <script>
+        var htmlListFaculty = "<option value='Tất cả' >Tất cả</option>";
+        var htmlListFacultyOnModal = "";
+        listClass.forEach(clas => {
+            htmlListFaculty += `<option value="${clas.faculty}" >${clas.faculty}</option>`;
+            htmlListFacultyOnModal += `<option value="${clas.faculty}" >${clas.faculty}</option>`;
+        })
+        list_faculty.innerHTML = htmlListFaculty;
+        list_faculty_modal.innerHTML = htmlListFacultyOnModal;
+
+        chooseFaculty();
+        function chooseFaculty() {
+            var htmlListClass = "<option value='Tất cả' >Tất cả</option>";
+            var htmlListClassOnModal = "";
+            listClass.forEach(clas => {
+                if (clas.faculty == myFaculty.value) {
+                    htmlListClass = "";
+                    clas.list_class.forEach(classInList => {
+                        if (classInList.status == "open") {
+                            htmlListClass += `<option value="${classInList.class_name}" >${classInList.class_name + "-" + classInList.major}</option>`
+                        }
+                    })
+                }
+                if (clas.faculty == myFacultyOnModal.value) {
+                    clas.list_class.forEach(classInList => {
+                        if (classInList.status == "open") {
+                            htmlListClassOnModal += `<option value="${classInList.class_name + "-" + classInList.major}" >${classInList.class_name + "-" + classInList.major}</option>`
+                        }
+                    })
+                }
+            })
+            list_class.innerHTML = htmlListClass;
+            list_class_modal.innerHTML = htmlListClassOnModal;
+            chooseClass();
+        }
+        function chooseClass() {
+            var htmlListUsers = "";
+            studentsList.forEach(student => {
+                //console.log(student)
+                if (student.student_class.class_name == myClass.value && student.role != "admin") {
+                    //console.log(student)
+                    htmlListUsers += `<tr>
+                                <td >${student.student_code}</td>
+                                <td>${student.full_name}</td>
+                                <td>${student.sex}</td>
+                                <td>${student.date_of_birth}</td>
+                                <td>${student.identity_card_number}</td>
+                                <td>${student.student_class.class_name}</td>
+                                `
+                    htmlListUsers += `</tr>`;
+                }
+                if (myClass.value == "Tất cả" && student.role != "admin") {
+                    //console.log(student)
+                    htmlListUsers += `<tr>
+                                <td>${student.student_code}</td>
+                                <td>${student.full_name}</td>
+                                <td>${student.sex}</td>
+                                <td>${student.date_of_birth}</td>
+                                <td>${student.identity_card_number}</td>
+                                <td>${student.student_class.class_name}</td>
+                                `
+                    htmlListUsers += `</tr>`;
+                }
+            })
+            listUsers.innerHTML = htmlListUsers;
+        }
+
+        function createAccount() {
+            var user = {};
+            user.full_name = fullName.value;
+            user.student_code = studentCode.value;
+            user.identity_card_number = identityCardNumber.value;
+            user.sex = sex.value;
+            user.date_of_birth = dateOfBirth.value;
+            user.place_of_birth = placeOfBirth.value;
+            var studentClass = {};
+            var getClass = myClassOnModal.value.split("-");
+            studentClass.class_name = getClass[0];
+            studentClass.major = getClass[1];
+            studentClass.faculty = myFacultyOnModal.value;
+            user.student_class = studentClass;
+            user.marks = [];
+            chooseClass();
+            ListDiemSinhVien.push(user);
+            $(".modal-body input").val("");
+        }
+
+        btnCreateAccount.onclick = () => {
+            //console.log("ok")
+            //createAccount();
+        }
+
+
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150192457-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-150192457-1');
+    </script>
+    <script>
+        var wb = XLSX.utils.table_to_book(document.getElementById('mytable'), { sheet: "Sheet JS" });
+        var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'binary' });
+        function s2ab(s) {
+            var buf = new ArrayBuffer(s.length);
+            var view = new Uint8Array(buf);
+            for (var i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+            return buf;
+        }
+        $("#buttonExportExcel").click(function () {
+            saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), 'Danh_sach_sinh_vien.xlsx');
+        });
+    </script>
+    <script>
+        var $rows = $('#listUsers tr');
+        $('#search').keyup(function () {
+            var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+            console.log("ok")
+            $rows.show().filter(function () {
+                var text = xoa_dau($(this).text().replace(/\s+/g, ' ').toLowerCase());
+                return !~text.indexOf(val);
+            }).hide();
+        });
+    </script>
+</body>
+
+</html>

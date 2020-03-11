@@ -1,0 +1,275 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+table {
+    border-collapse: collapse;
+    padding: 20px;
+    margin: 0;
+    width: 100%;
+}
+
+.left-column {
+    margin-top: 5%;
+    margin-left: 2%;
+    display: block;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    overflow: hiddden;
+}
+
+.right-column {
+    margin-top: 5%;
+    width: 24%;
+    vertical-align: top;
+    display: block;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    overflow: hiddden;
+}
+
+.center-column {
+    margin-top: 6%;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: calc(18%);
+    right: calc(12%);
+    bottom: 0;
+    overflow-y: scroll;
+    max-width: 58%;
+}
+
+.header {
+    height: 7%;
+    color: #fff;
+    position: fixed;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    z-index: 1;
+    background-color: red;
+}
+
+.text-center {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.tiendo {
+    bottom: 0;
+    overflow-y: scroll;
+    height: 40vh;
+}
+
+.bailam {
+    bottom: 0;
+    overflow-y: scroll;
+    height: 60vh;
+}
+
+.hidden_button {
+    display: none;
+}
+
+.logoGDU {
+    width: 100px;
+    height: 100px;
+    background-image: url("img/logo_gia_dinh.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.btn_li_menu {
+    border-radius: 70%;
+    width: 80px;
+    height: 80px;
+    margin-top: -15%;
+}
+/* Hieu ung check radio */
+.inputGroup {
+    background-color: #fff;
+    margin: 10px 0;
+    position: relative;
+  }
+  .inputGroup label {
+    padding: 8px 10px;
+    width: 100%;
+    display: block;
+    text-align: left;
+    color: #3c454c;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    transition: color 200ms ease-in;
+    overflow: hidden;
+  }
+  .inputGroup label:before {
+    width: 100%;
+    height: 10px;
+    border-radius: 50%;
+    content: "";
+    background-color: #5562eb;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%) scale3d(1, 1, 1);
+            transform: translate(-50%, -50%) scale3d(1, 1, 1);
+    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    z-index: -1;
+  }
+  .inputGroup label:after {
+    width: 25px;
+    height: 25px;
+    content: "";
+    border: 2px solid #d1d7dc;
+    background-color: #fff;
+    background-image: url("data:image/svg+xml,%3Csvg width='25' height='25' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.414 11L4 12.414l5.414 5.414L20.828 6.414 19.414 5l-10 10z' fill='%23fff' fill-rule='nonzero'/%3E%3C/svg%3E ");
+    background-repeat: no-repeat;
+    background-position: 2px 3px;
+    border-radius: 50%;
+    z-index: 2;
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+    cursor: pointer;
+    transition: all 200ms ease-in;
+  }
+  .inputGroup input:checked ~ label {
+    color: #fff;
+  }
+  .inputGroup input:checked ~ label:before {
+    -webkit-transform: translate(-50%, -50%) scale3d(56, 56, 1);
+            transform: translate(-50%, -50%) scale3d(56, 56, 1);
+    opacity: 1;
+  }
+  .inputGroup input:checked ~ label:after {
+    background-color: #54e0c7;
+    border-color: #54e0c7;
+  }
+  .inputGroup input {
+    width: 32px;
+    height: 32px;
+    order: 1;
+    z-index: 2;
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+    cursor: pointer;
+    visibility: hidden;
+  }
+  
+  .form {
+    padding: 0 16px;
+    max-width: 550px;
+    margin: 50px auto;
+    /* font-size: 18px;
+    font-weight: 600;
+    line-height: 36px; */
+  }
+
+
+  /*check Khoa*/
+  .check {
+    cursor: pointer;
+    position: relative;
+    margin: auto;
+    width: 18px;
+    height: 18px;
+    -webkit-tap-highlight-color: transparent;
+    transform: translate3d(0, 0, 0);
+  }
+  .check:before {
+    content: "";
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(34,50,84,0.03);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  .check svg {
+    position: relative;
+    z-index: 1;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke: #c8ccd4;
+    stroke-width: 1.5;
+    transform: translate3d(0, 0, 0);
+    transition: all 0.2s ease;
+  }
+  .check svg path {
+    stroke-dasharray: 60;
+    stroke-dashoffset: 0;
+  }
+  .check svg polyline {
+    stroke-dasharray: 22;
+    stroke-dashoffset: 66;
+  }
+  .check:hover:before {
+    opacity: 1;
+  }
+  .check:hover svg {
+    stroke: #4285f4;
+  }
+  .cbx:checked + .check svg {
+    stroke: #4285f4;
+  }
+  .cbx:checked + .check svg path {
+    stroke-dashoffset: 60;
+    transition: all 0.3s linear;
+  }
+  .cbx:checked + .check svg polyline {
+    stroke-dashoffset: 42;
+    transition: all 0.2s linear;
+    transition-delay: 0.15s;
+  }
+
+
+  .mySlides {
+    display: none;
+}
+.mySlidesPart1 {
+    display: none;
+}
+.mySlidesPart2 {
+    display: none;
+}
+.mySlidesPart3 {
+    display: none;
+}
+.mySlidesPart4 {
+    display: none;
+}
+.mySlidesPart5 {
+    display: none;
+}
+.mySlidesPart6 {
+    display: none;
+}
+.mySlidesPart7 {
+    display: none;
+}
+.mySlidesPart8 {
+    display: none;
+}
+.mySlidesPart9 {
+    display: none;
+}
+.mySlidesPart10 {
+    display: none;
+}

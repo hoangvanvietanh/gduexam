@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Tạo đề thi</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/Google-Style-Text-Input.css">
+    <link rel="stylesheet" href="/css/select.css">
+    <link rel="stylesheet" href="/css/Studious-selectbox.css">
+    <script src="/ckeditor5/ckeditor-readonly.js"></script>
+    <style>
+        #Cau_hoi_chon,
+        #list_cau_hoi {
+            float: left;
+            width: 100%;
+            height: 500px;
+            /* margin: 10px; */
+            /* padding: 10px; */
+            /* border: 1px solid black; */
+            overflow: scroll;
+        }
+    </style>
+</head>
+
+<body>
+    <!--Navbar -->
+    <nav class="mb-1 navbar navbar-expand-lg navbar-dark orange lighten-1" style="background-color: #002f69">
+        <a class="navbar-brand" href="#"><b>Gia Dinh University</b></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
+            aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+            <ul class="navbar-nav mr-auto" style="position: absolute;left: 50%;">
+                <li class="nav-item active">
+
+                    <a class="nav-link" href="#">
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto nav-flex-icons">
+                <li class="nav-item avatar">
+                    <a class="nav-link p-0" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <img src="/img/andanh.png" class="rounded-circle z-depth-0" alt="avatar image" height="35">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
+                        aria-labelledby="navbarDropdownMenuLink-55">
+                        <a class="dropdown-item" href="#">Tài khoản</a>
+                        <a class="dropdown-item" href="/users/logout">Đăng xuất</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!--/.Navbar -->
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/admin/home">Trang chủ</a></li>
+                <li class="breadcrumb-item"><a href="/admin/exam">Đề thi</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Tạo đề thi</li>
+            </ol>
+        </nav>
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="text-center">Tạo đề thi</h3>
+                <div class="row collapse show">
+                    <div class="col-sm-4">
+                        <div class="group">
+                            <input class="input" type="text" id="examCode" >
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                               <label class="label">Mã đề</label>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <form style="margin-top: 8px;">
+                                    <div class="field"><select class="form-control"
+                                            style="border: none;border-bottom: 1px solid #757575;" id="subject"
+                                            onchange="chooseSubject()">
+                                            <optgroup label="Chọn môn học" id="list_subject">
+
+                                            </optgroup>
+                                        </select></div>
+                                </form>
+                            </div>
+                        </div>
+
+
+                        <div class="group">
+                            <input class="input" type="text" id="topic" required>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                               <label class="label">Chủ đề</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <form style="margin-top: 8px;">
+                            <div class="field">
+                                <select id="semester" class="form-control input"
+                                    style="border: none;border-bottom: 1px solid #757575;border-radius: 0;">
+                                    <optgroup label="Chọn học kỳ">
+                                        <option value="1" selected="">Học kì 1</option>
+                                        <option value="2">Học kì 2</option>
+                                        <option value="3">Học kì 3</option>
+                                        <option value="4">Học kì 4</option>
+                                        <option value="5">Học kì 5</option>
+                                        <option value="6">Học kì 6</option>
+                                        <option value="7">Học kì 7</option>
+                                        <option value="8">Học kì 8</option>
+                                        <option value="0">Học kì hè</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                        </form>
+                        <div class="group">      
+                               <input class="input" style="margin-top: -16px;" type="number" id="timeOfExam" required>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                               <label class="label">Thời gian làm bài</label>
+                        </div>
+                        <div class="cntr">
+                            <label for="rdo-1" class="btn-radio">
+                                <input type="radio" id="rdo-1" name="status" value="close">
+                                <svg width="20px" height="20px" viewBox="0 0 20 20">
+                                    <circle cx="10" cy="10" r="9"></circle>
+                                    <path
+                                        d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                        class="inner"></path>
+                                    <path
+                                        d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                        class="outer"></path>
+                                </svg>
+                                <span>Trạng thái đóng</span>
+                            </label>
+                            <label for="rdo-2" class="btn-radio">
+                                <input type="radio" id="rdo-2" name="status" value="open" checked>
+                                <svg width="20px" height="20px" viewBox="0 0 20 20">
+                                    <circle cx="10" cy="10" r="9"></circle>
+                                    <path
+                                        d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                        class="inner"></path>
+                                    <path
+                                        d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                        class="outer"></path>
+                                </svg>
+                                <span>Trạng thái mở</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <form style="margin-top: 8px;">
+                            <div class="field"><select class="form-control"
+                                    style="border: none;border-bottom: 1px solid #757575;border-radius: 0;"
+                                    id="levelOfQuestion" onchange="chooseLevel()">
+                                    <optgroup label="Chọn mức độ câu hỏi">
+                                        <option value="1" selected> Dễ</option>
+                                        <option value="2">Trung bình</option>
+                                        <option value="3">Khó</option>
+                                        <option value="4">Cực khó</option>
+                                    </optgroup>
+                                </select></div>
+                        </form>
+
+                        <div class="group">      
+                               <input class="input" style="margin-top: -16px;" type="number" id="numberOfExam" onchange="checkNumberQuestions()" required>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                               <label class="label">Số câu hỏi</label>
+                        </div>
+
+                        <form style="margin-top: 8px;">
+                            <div class="field"><select class="form-control"
+                                    style="border: none;border-bottom: 1px solid #757575;border-radius: 0;"
+                                    id="examRate">
+                                    <optgroup label="Chia tỉ lệ câu hỏi">
+                                        <option value="1" selected>60% Dễ - 25% Trung bình - 10% Khó - 5% Cực khó
+                                        </option>
+                                        <option value="2"> 50% Dễ -30% Trung bình-15% Khó-5% Cực khó</option>
+                                        <option value="3">40% Dễ - 30% Trung bình - 20% Khó - 10% Cực khó</option>
+                                        <option value="4">30% Dễ - 30% Trung bình - 30% Khó - 10% Cực khó</option>
+                                    </optgroup>
+                                </select></div>
+                        </form>
+
+
+                    </div>
+
+                    <button style="width: 100%;margin-top: 30px" type="button" id="buttonAddExam"
+                        class="btn btn-primary">Tạo đề
+                        thi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/js/jquery-3.3.1.slim.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/Studious-selectbox.js"></script>
+    <script src="/business/dataForAdmin.js"></script>
+    <script>
+        var htmlListSubject = "";
+        var totalNumberQuestionInSubject = 0;
+        listSubject.forEach(subject => {
+            htmlListSubject += `<option value="${subject.subject_name}" >${subject.subject_name}</option>`;
+        })
+        list_subject.innerHTML = htmlListSubject;
+
+        runFirst();
+        chooseSubject ();
+
+        function runFirst()
+        {
+            var subject = document.getElementById("subject").value;
+            questionListOfData.forEach(data => {
+                if (data.subject == subject) {
+                    data.question_list.sort(function (a, b) {
+                        return 0.5 - Math.random()
+                    });
+                }
+            });
+
+            examCode.value = 100+ listExam.length + 1;
+        }
+
+        function chooseSubject ()
+        {
+            var subject = document.getElementById("subject").value;
+            questionListOfData.forEach(data => {
+                if (data.subject == subject) {
+                    totalNumberQuestionInSubject = data.question_list.length;
+                }
+            });
+        }
+
+        function checkNumberQuestions()
+        {
+            var subject = document.getElementById("subject").value;
+            var numberOfExams = document.getElementById("numberOfExam").value;
+            
+            if(numberOfExams > totalNumberQuestionInSubject)
+            {
+                numberOfExam.value = totalNumberQuestionInSubject
+            }
+        }
+
+        buttonAddExam.onclick = () => {
+            var examCode = document.getElementById("examCode").value;
+            var timeOfExam = document.getElementById("timeOfExam").value;
+            var numberOfExam = document.getElementById("numberOfExam").value;
+            var subject = document.getElementById("subject").value;
+            var topic = document.getElementById("topic").value;
+            var status = "";
+            var semester = $("#semester option:selected").val();
+            var radios = document.getElementsByName('status');
+            var examRate = document.getElementById("examRate").value;
+            var listQuestionOfExam = [];
+            for (var i = 0, length = radios.length; i < length; i++) {
+                if (radios[i].checked) {
+                    status = radios[i].value;
+                    break;
+                }
+            }
+            var cauDe = 0;
+            var cauTB = 0;
+            var cauKho = 0;
+            var cauCucKho = 0;
+            if (examRate == 1) {
+                cauDe =Math.round(numberOfExam * 0.6)
+                cauTB =Math.round (numberOfExam * 0.25)
+                cauKho = Math.round(numberOfExam * 0.1)
+                cauCucKho = Number(numberOfExam - (cauDe + cauTB + cauKho));
+            }
+            else if (examRate == 2) {
+                cauDe = Math.round(numberOfExam * 0.5);
+                cauTB = Math.round(numberOfExam * 0.3);
+                cauKho = Math.round(numberOfExam * 0.15);
+                cauCucKho = numberOfExam - (cauDe + cauTB + cauKho);
+            } else if (examRate == 3) {
+                cauDe = Math.round(numberOfExam * 0.4);
+                cauTB = Math.round(numberOfExam * 0.3);
+                cauKho = Math.round(numberOfExam * 0.2);
+                cauCucKho = numberOfExam - (cauDe + cauTB + cauKho);
+            } else if (examRate == 4) {
+                cauDe = Math.round(numberOfExam * 0.3);
+                cauTB = Math.round(numberOfExam * 0.3);
+                cauKho = Math.round(numberOfExam * 0.3);
+                cauCucKho = numberOfExam - (cauDe + cauTB + cauKho);
+            }
+
+            console.log(cauDe + "-"+ cauTB + "-"+ cauKho + "_"+ cauCucKho)
+            
+            var countCauDe = 0;
+            var countCauTB = 0;
+            var countCauKho = 0;
+            var countCauCucKho = 0;
+            questionListOfData.forEach(data => {
+                if (data.subject == subject) {
+                    data.question_list.forEach(content => {
+                        if(content.level_question == 1)
+                        {
+                            countCauDe++;
+                            if(countCauDe<=cauDe)
+                            {
+                                listQuestionOfExam.push(content)
+                            }
+                        }
+                        else if(content.level_question == 2)
+                        {
+                            countCauTB++;
+                            if(countCauTB<=cauTB)
+                            {
+                                listQuestionOfExam.push(content)
+                            }
+                        }
+                        else if(content.level_question == 3)
+                        {
+                            countCauKho++;
+                            if(countCauKho<=cauKho)
+                            {
+                                listQuestionOfExam.push(content)
+                            }
+                        }
+                        else if(content.level_question == 4)
+                        {
+                            countCauCucKho++;
+                            if(countCauCucKho<=cauCucKho)
+                            {
+                                listQuestionOfExam.push(content)
+                            }
+                        }
+                    })
+                }
+            });
+            console.log(listQuestionOfExam)
+
+            createExam(examCode, timeOfExam, subject, topic, status, semester, listQuestionOfExam);
+        }
+
+
+
+        function createExam(examCode, timeOfExam, subject, topic, status, semester, questionList) {
+            var exam = {}
+            exam.exam_code = examCode;
+            exam.topic = topic;
+            exam.time = timeOfExam;
+            exam.semester = semester;
+            exam.status = status;
+            exam.subject = subject;
+            exam.date_created = Get_date_now();
+            exam.question_list = JSON.stringify(questionList);
+            exam.class_take_exam = [];
+            exam.listening = [];
+            exam.reading = [];
+            exam.for_english = false;
+            //examList.push(exam);
+            //Them_De_thi(exam);
+            post("/admin/createExam", exam);
+            localStorage.clear();
+            //document.location.href = "/admin/exam";
+
+        }
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150192457-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-150192457-1');
+    </script>
+
+</body>
+
+</html>

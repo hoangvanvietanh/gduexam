@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Quản lý chuyên ngành</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/adquestion.css">
+    <link rel="stylesheet" href="/css/Google-Style-Text-Input.css">
+    <link rel="stylesheet" href="/css/select.css">
+    <link rel="stylesheet" href="/css/Studious-selectbox.css">
+</head>
+
+<body style="min-height: 75rem;padding-top: 3.5rem;">
+    <!--Navbar -->
+    <nav class="mb-1 navbar navbar-expand-lg navbar-dark fixed-top orange lighten-1" style="padding: 5px;background-color: #002f69">
+        <a class="navbar-brand" href="#"><b>Gia Dinh University</b></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
+            aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+            <ul class="navbar-nav mr-auto" style="position: absolute;left: 50%;">
+                <li class="nav-item active">
+
+                    <a class="nav-link" href="#">
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto nav-flex-icons">
+                <li class="nav-item avatar">
+                    <a class="nav-link p-0" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <img src="/img/andanh.png" class="rounded-circle z-depth-0" alt="avatar image" height="35">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
+                        aria-labelledby="navbarDropdownMenuLink-55">
+                        <a class="dropdown-item" href="#">Tài khoản</a>
+                        <a class="dropdown-item" href="/users/logout">Đăng xuất</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!--/.Navbar -->
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb" style="padding: 5px;">
+                <li class="breadcrumb-item"><a href="/admin/home">Trang chủ</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Danh sách chuyên ngành</li>
+            </ol>
+        </nav>
+
+        <div class="row">
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <form style="margin-top: 8px;">
+                            <div class="field"><select class="form-control"
+                                    style="border: none;border-bottom: 1px solid #757575;border-radius: 0;"
+                                    id="myFaculty" onchange="chooseFaculty()">
+                                    <optgroup label="Chọn khoa" id="list_faculty">
+                                    </optgroup>
+                                </select></div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <!-- <input type="text" id="search" placeholder="Type to search"> -->
+                        <div class="form-group">
+                            <input type="text" class="form-control" aria-describedby="helpId"
+                                placeholder="Search tất cả dữ liệu......." id="search">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <button type="button" class="btn btn-primary" style="width: 60%;" 
+                        data-toggle="modal" data-target=".bd-example-modal-xl">Tạo chuyên ngành</button>
+                        <button id="buttonExportExcel" type="button" class="btn btn-primary" style="width: 39%;">Export Excel</button>
+
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table fixed_header" id="mytable">
+                        <thead>
+                            <tr>
+                                <th>Chuyên ngành</th>
+                                <th>Số lớp</th>
+                                <th>Ngày tạo</th>
+                                <th>Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody id="list_class">
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="my-modal-title">Tạo chuyên ngành</h3>
+                    <button class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            <form style="margin-top: 8px;">
+                                <div class="field"><select class="form-control"
+                                        style="border: none;border-bottom: 1px solid #757575;border-radius: 0;"
+                                        id="myFacultyModal">
+                                        <optgroup label="Chọn khoa" id="list_faculty_modal">
+                                        </optgroup>
+                                    </select></div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="group" style="margin-bottom: 45px;"><input id="majorName" class="input"
+                                    type="text" required /><span class="highlight"></span><span
+                                    class="bar"></span><label class="label">Tên chuyên ngành</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="cntr">
+                                <label for="rdo-1" class="btn-radio">
+                                    <input type="radio" id="rdo-1" name="status" value="close">
+                                    <svg width="20px" height="20px" viewBox="0 0 20 20">
+                                        <circle cx="10" cy="10" r="9"></circle>
+                                        <path
+                                            d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                            class="inner"></path>
+                                        <path
+                                            d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                            class="outer"></path>
+                                    </svg>
+                                    <span>Trạng thái đóng</span>
+                                </label>
+                                <label for="rdo-2" class="btn-radio">
+                                    <input type="radio" id="rdo-2" name="status" value="open" checked>
+                                    <svg width="20px" height="20px" viewBox="0 0 20 20">
+                                        <circle cx="10" cy="10" r="9"></circle>
+                                        <path
+                                            d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                            class="inner"></path>
+                                        <path
+                                            d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                            class="outer"></path>
+                                    </svg>
+                                    <span>Trạng thái mở</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" style="width: 100%;" class="btn btn-primary" id="btnCreateMajor">Đồng
+                        ý</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/jquery-3.3.1.slim.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/Studious-selectbox.js"></script>
+    <script src="/js/xlsx.full.min.js"></script>
+    <script src="/js/FileSaver.js"></script>
+    <script src="/business/dataForAdmin.js"></script>
+    <script>
+        var htmlListFaculty = "<option value='Tất cả' >Tất cả</option>";
+        var htmlListFacultyModal ="";
+        listClass.forEach(clas => {
+            htmlListFaculty += `<option value="${clas.faculty}" >${clas.faculty}</option>`;
+            htmlListFacultyModal += `<option value="${clas.faculty}" >${clas.faculty}</option>`;
+        })
+        list_faculty.innerHTML = htmlListFaculty;
+        list_faculty_modal.innerHTML = htmlListFacultyModal;
+
+        chooseFaculty();
+        function chooseFaculty() {
+
+            var htmlListClass = "";
+            listClass.forEach(clas => {
+                if (clas.faculty == myFaculty.value) {
+                    clas.list_major.forEach(classInList => {
+                        var countClass = 0;
+                        clas.list_class.forEach(cla => {
+                            if (cla.major == classInList.major_name) {
+                                countClass++;
+                            }
+                        })
+                        htmlListClass += `<tr>
+                                <td>${classInList.major_name}</td>
+                                <td>${countClass}</td>
+                                <td>${classInList.date_created}</td>
+                                <td>${classInList.status}</td>`
+                        htmlListClass += `</tr>`
+                    })
+                    list_class.innerHTML = htmlListClass;
+                }
+                if (myFaculty.value == "Tất cả") {
+                    clas.list_major.forEach(classInList => {
+                        var countClass = 0;
+                        clas.list_class.forEach(cla => {
+                            if (cla.major == classInList.major_name) {
+                                countClass++;
+                            }
+                        })
+                        htmlListClass += `<tr>
+                                <td>${classInList.major_name}</td>
+                                <td>${countClass}</td>
+                                <td>${classInList.date_created}</td>
+                                <td>${classInList.status}</td>`
+                        htmlListClass += `</tr>`
+                    })
+                    list_class.innerHTML = htmlListClass;
+                }
+            })
+        }
+        btnCreateMajor.onclick = () => {
+            var major = {}
+            var status = "";
+            var radios = document.getElementsByName('status');
+
+            for (var i = 0, length = radios.length; i < length; i++) {
+                if (radios[i].checked) {
+                    status = radios[i].value;
+                    break;
+                }
+            }
+            major.major_name = majorName.value;
+            major.status = status;
+            major.date_created = Get_date_now();
+            var khoa = {}
+            listClass.forEach(x=>{
+                if(x.faculty==myFacultyModal.value)
+                {
+                    x.list_major.push(major);
+                    khoa  = x;
+                }
+            })
+            
+            Cap_nhat_Khoa(khoa);
+            document.location.href = "/admin/major";
+        }
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150192457-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-150192457-1');
+    </script>
+    <script>
+        var wb = XLSX.utils.table_to_book(document.getElementById('mytable'), { sheet: "Sheet JS" });
+        var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'binary' });
+        function s2ab(s) {
+            var buf = new ArrayBuffer(s.length);
+            var view = new Uint8Array(buf);
+            for (var i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+            return buf;
+        }
+        $("#buttonExportExcel").click(function () {
+            saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), 'Danh_sach_chuyen_nganh.xlsx');
+        });
+    </script>
+    <script>
+        var $rows = $('#list_class tr');
+        $('#search').keyup(function () {
+            var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+            console.log("ok")
+            $rows.show().filter(function () {
+                var text = xoa_dau($(this).text().replace(/\s+/g, ' ').toLowerCase());
+                return !~text.indexOf(val);
+            }).hide();
+        });
+    </script>
+</body>
+
+</html>

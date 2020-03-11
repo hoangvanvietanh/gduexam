@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Tạo đề thi</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/Google-Style-Text-Input.css">
+    <link rel="stylesheet" href="/css/select.css">
+    <link rel="stylesheet" href="/css/Studious-selectbox.css">
+    <style>
+        #Cau_hoi_chon,
+        #list_cau_hoi {
+            float: left;
+            width: 100%;
+            height: 500px;
+            /* margin: 10px; */
+            /* padding: 10px; */
+            /* border: 1px solid black; */
+            overflow: scroll;
+        }
+
+        #list_class {
+            float: left;
+            width: 100%;
+            height: 200px;
+            /* margin: 10px; */
+            /* padding: 10px; */
+            /* border: 1px solid black; */
+            overflow: scroll;
+        }
+
+        #list_lop_tham_gia {
+            float: left;
+            width: 100%;
+            height: 200px;
+            /* margin: 10px; */
+            /* padding: 10px; */
+            /* border: 1px solid black; */
+            overflow: scroll;
+        }
+    </style>
+</head>
+
+<body>
+    <!--Navbar -->
+    <nav class="mb-1 navbar navbar-expand-lg navbar-dark orange lighten-1" style="background-color: #002f69">
+        <a class="navbar-brand" href="#"><b>Gia Dinh University</b></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
+            aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+            <ul class="navbar-nav mr-auto" style="position: absolute;left: 50%;">
+                <li class="nav-item active">
+
+                    <a class="nav-link" href="#">
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto nav-flex-icons">
+                <li class="nav-item avatar">
+                    <a class="nav-link p-0" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <img src="/img/andanh.png" class="rounded-circle z-depth-0" alt="avatar image" height="35">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
+                        aria-labelledby="navbarDropdownMenuLink-55">
+                        <a class="dropdown-item" href="#">Tài khoản</a>
+                        <a class="dropdown-item" href="/users/logout">Đăng xuất</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!--/.Navbar -->
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/admin/home">Trang chủ</a></li>
+                <li class="breadcrumb-item"><a href="/admin/exam">Đề thi</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Tạo đề thi</li>
+            </ol>
+        </nav>
+        <div class="row">
+            <div class="col-md-7">
+                <h3 class="text-center">Thông tin đề thi</h3>
+                <h5 class="text-center"><a data-toggle="collapse" href="#collapseInfomation" role="button"
+                        aria-expanded="true" aria-controls="collapseInfomation">
+                        Ẩn/hiện hông tin đề thi
+                    </a></h5>
+
+                <div class="row collapse show" id="collapseInfomation">
+                    <div class="col-sm-6">
+                        <div class="group">
+                            <input class="input" type="text" id="examCode">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label class="label">Mã đề</label>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <form style="margin-top: 8px;">
+                                    <div class="field"><select class="form-control"
+                                            style="border: none;border-bottom: 1px solid #757575;border-radius: 0;"
+                                            id="subject" onchange="chooseSubject()">
+                                            <optgroup label="Chọn môn học" id="list_subject">
+                                            </optgroup>
+                                        </select></div>
+                                </form>
+                            </div>
+                        </div>
+
+
+                        <div class="group">
+                            <input class="input" type="text" id="topic" required>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                               <label class="label">Chủ đề</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <form style="margin-top: 8px;">
+                            <div class="field">
+                                <select id="semester" class="form-control input"
+                                    style="border: none;border-bottom: 1px solid #757575;border-radius: 0;">
+                                    <optgroup label="Chọn học kỳ">
+                                        <option value="1">Học kì 1</option>
+                                        <option value="2">Học kì 2</option>
+                                        <option value="3">Học kì 3</option>
+                                        <option value="4">Học kì 4</option>
+                                        <option value="5">Học kì 5</option>
+                                        <option value="6">Học kì 6</option>
+                                        <option value="7">Học kì 7</option>
+                                        <option value="8">Học kì 8</option>
+                                        <option value="0">Học kì hè</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                        </form>
+                        <div class="group">      
+                               <input class="input" style="margin-top: -16px;" type="number" id="timeOfExam" required>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                               <label class="label">Thời gian làm bài</label>
+                        </div>
+                        <div class="cntr">
+                            <label for="raClose" class="btn-radio">
+                                <input type="radio" id="raClose" name="status" value="close">
+                                <svg width="20px" height="20px" viewBox="0 0 20 20">
+                                    <circle cx="10" cy="10" r="9"></circle>
+                                    <path
+                                        d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                        class="inner"></path>
+                                    <path
+                                        d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                        class="outer"></path>
+                                </svg>
+                                <span>Trạng thái đóng</span>
+                            </label>
+                            <label for="raOpen" class="btn-radio">
+                                <input type="radio" id="raOpen" name="status" value="open" checked>
+                                <svg width="20px" height="20px" viewBox="0 0 20 20">
+                                    <circle cx="10" cy="10" r="9"></circle>
+                                    <path
+                                        d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                        class="inner"></path>
+                                    <path
+                                        d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                        class="outer"></path>
+                                </svg>
+                                <span>Trạng thái mở</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <h4 class="text-center">Nội dung thi</h4>
+                <div id="Cau_hoi_chon"></div>
+            </div>
+            <div class="col-md-5">
+
+                <h3 class="text-center">Danh sách lớp</h3>
+                <h5 class="text-center"><a data-toggle="collapse" href="#collapseFilterQuestion" role="button"
+                        aria-expanded="true" aria-controls="collapseFilterQuestion">
+                        Ẩn/hiện lọc câu hỏi
+                    </a></h5>
+                <div class="row collapse show" id="collapseFilterQuestion">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col">
+                                <form style="margin-top: 8px;">
+                                    <div class="field"><select class="form-control"
+                                            style="border: none;border-bottom: 1px solid #757575;border-radius: 0;"
+                                            id="mySelect" onchange="chooseClass()">
+                                            <optgroup label="Chọn khoa" id="list_faculty">
+                                            </optgroup>
+                                        </select></div>
+                                </form>
+                            </div>
+                        </div>
+                        <div id="list_class"></div>
+                        <button style="width: 100%;margin-top: 30px" type="button" id="buttonUpdateExam"
+                            class="btn btn-primary">Cập nhật</button>
+                    </div>
+                    <h4 style="margin-top: 20px;margin-left: 20%;" class="text-center">Danh sách lớp tham gia thi</h4>
+                    <div id="list_lop_tham_gia"></div>
+                </div>
+
+                <h4 style="margin-top: 20px" class="text-center">Danh sách câu hỏi</h4>
+                <div class="row">
+                    <div class="col">
+                        <form style="margin-top: 8px;">
+                            <div class="field"><select class="form-control"
+                                    style="border: none;border-bottom: 1px solid #757575;border-radius: 0;"
+                                    id="levelOfQuestion" onchange="chooseLevel()">
+                                    <optgroup label="Chọn mức độ câu hỏi">
+                                        <option value="1" selected> Dễ</option>
+                                        <option value="2">Trung bình</option>
+                                        <option value="3">Khó</option>
+                                        <option value="4">Cực khó</option>
+                                    </optgroup>
+                                </select></div>
+                        </form>
+                    </div>
+                </div>
+                <div id="list_cau_hoi"></div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="idListExam" value="<%=examList%>">
+    <script src="/js/jquery-3.3.1.slim.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/Studious-selectbox.js"></script>
+    <script src="/business/dataForAdmin.js"></script>
+    <script>
+        var classChoose = [];
+        var listABC = ["A", "B", "C", "D", "E", "F"];
+        var examUpdate = {};
+        var examList = JSON.parse(idListExam.value);
+
+        var htmlListFaculty = "";
+        listClass.forEach(clas => {
+            htmlListFaculty += `<option value="${clas.faculty}" >${clas.faculty}</option>`
+        })
+        list_faculty.innerHTML = htmlListFaculty;
+
+        var i = 0;
+        examList.forEach(exam => {
+            if (exam.exam_code == localStorage.getItem("examCode")) {
+
+                var htmlListSubject = "";
+                listSubject.forEach(subject => {
+                    if (exam.subject == subject.subject_name) {
+                        htmlListSubject += `<option value="${subject.subject_name}" checked>${subject.subject_name}</option>`;
+                    }
+                    else {
+                        htmlListSubject += `<option value="${subject.subject_name}" >${subject.subject_name}</option>`;
+                    }
+
+                })
+                list_subject.innerHTML = htmlListSubject;
+
+                examUpdate = exam;
+                examCode.value = exam.exam_code;
+                timeOfExam.value = exam.time;
+                subject.value = exam.subject;
+                topic.value = exam.topic;
+                semester.value = exam.semester;
+                if (exam.status == "open") {
+                    raOpen.checked = true;
+                }
+                else {
+                    raClose.checked = true;
+                }
+
+
+                var htmlQuestion = "";
+                var htmlListLopThamGia = "";
+                exam.question_list.forEach(content => {
+                    i++;
+                    htmlQuestion += `
+                <div onclick="moveButtonCH(this,'${content.question.replace(/"/g, "dauNhay")}')" >
+                            <tbody width="100%">
+                                <tr>
+                                    <td><b>Câu hỏi: ${content.question} </b></td>
+                                    </br>
+                                </tr>
+                                <input type="hidden" id="CH${i}" value = "${content.question}">
+                `
+                    addQuestionFromExam(i, content.question.replace(/"/g, "dauNhay"));
+                    for (var k = 0; k < content.answer_list.length; k++) {
+                        if (content.answer_list[k] == content.correct_answer) {
+                            htmlQuestion += `
+            <tr>
+            <td><b>${listABC[k]}. ${content.answer_list[k]}</b></td></br>
+            </tr>
+            `
+                        }
+                        else {
+                            htmlQuestion += `
+            <tr>
+            <td>${listABC[k]}. ${content.answer_list[k]}</td></br>
+            </tr>
+            `
+                        }
+                    }
+                    htmlQuestion += "</tbody></br></div>";
+
+                });
+
+
+                exam.class_take_exam.forEach(classInExam => {
+                    classChoose.push(classInExam);
+                    htmlListLopThamGia += `<div onclick="moveButton(this,'${classInExam}')" >${classInExam}
+                                </div>`
+                })
+                localStorage.setItem("classChoose", JSON.stringify(classChoose));
+                Cau_hoi_chon.innerHTML = htmlQuestion;
+                list_lop_tham_gia.innerHTML = htmlListLopThamGia;
+            }
+        })
+
+        chooseClass();
+
+
+        buttonUpdateExam.onclick = () => {
+            var status = "";
+            var radios = document.getElementsByName('status');
+            for (var i = 0, length = radios.length; i < length; i++) {
+                if (radios[i].checked) {
+                    status = radios[i].value;
+                    break;
+                }
+            }
+            examUpdate.class_take_exam = JSON.stringify(classChoose);
+            examUpdate.question_list = JSON.stringify(createListQuestionForExam());
+            examUpdate.topic = document.getElementById("topic").value;
+            examUpdate.time = document.getElementById("timeOfExam").value;
+            examUpdate.semester = $("#semester option:selected").val();
+            examUpdate.status = status;
+            examUpdate.subject = document.getElementById("subject").value;
+            //console.log(examUpdate)
+            //Cap_nhat_De_thi(examUpdate);
+            post("/admin/updateExam", examUpdate);
+            localStorage.clear();
+            //document.location.href = "/admin/exam";
+        }
+
+        function chooseClass() {
+            var htmlListClass = "";
+            listClass.forEach(clas => {
+                if (clas.faculty == mySelect.value) {
+                    clas.list_class.forEach(classInList => {
+                        if (classInList.status != "closed") {
+                            var checkClassAdready = false;
+                            classChoose.forEach(className => {
+                                if (classInList.class_name == className) {
+                                    checkClassAdready = true;
+                                }
+                            })
+                            if (checkClassAdready == false) {
+                                htmlListClass += `<div onclick="moveButton(this,'${classInList.class_name}')" >${classInList.class_name}
+                                </div>`
+                            }
+                        }
+                    })
+                    list_class.innerHTML = htmlListClass;
+                }
+            })
+
+        }
+
+        chooseSubject();
+        chooseLevel();
+        function chooseLevel() {
+            var htmlQuestion = "";
+            var subject = document.getElementById("subject").value;
+            var level = document.getElementById("levelOfQuestion").value;
+            questionListOfData.forEach(data => {
+                if (data.subject == subject) {
+                    data.question_list.forEach(content => {
+                        if (content.level_question == level) {
+                            var i = 0;
+                            var keys = Object.keys(localStorage),
+                                i = keys.length;
+                            var flag = 0;
+                            while (i--) {
+                                var question = localStorage.getItem(keys[i]);
+                                if (question == content.question) {
+                                    flag++;
+                                }
+                            }
+                            if (flag == 0) {
+                                htmlQuestion += `
+                <div onclick="moveButtonCH(this,'${content.question.replace(/"/g, "dauNhay")}')" >
+                            <tbody width="100%">
+                                <tr>
+                                    <td><b>Câu hỏi: ${content.question} </b></td>
+                                    </br>
+                                </tr>
+                                <input type="hidden" id="CH${i}" value = "${content.question}">
+                `
+                                for (var k = 0; k < content.answer_list.length; k++) {
+                                    if (content.answer_list[k] == content.correct_answer) {
+                                        htmlQuestion += `
+            <tr>
+            <td><b>${listABC[k]}. ${content.answer_list[k]}</b></td></br>
+            </tr>
+            `
+                                    }
+                                    else {
+                                        htmlQuestion += `
+            <tr>
+            <td>${listABC[k]}. ${content.answer_list[k]}</td></br>
+            </tr>
+            `
+                                    }
+                                }
+                                htmlQuestion += "</tbody></br></div>";
+                            }
+
+                        }
+
+
+                    });
+                }
+            });
+            list_cau_hoi.innerHTML = htmlQuestion;
+        }
+
+
+        function chooseSubject() {
+            var htmlQuestion = "";
+            var subject = document.getElementById("subject").value;
+            var level = document.getElementById("levelOfQuestion").value;
+            questionListOfData.forEach(data => {
+                if (data.subject == subject) {
+                    data.question_list.forEach(content => {
+                        if (content.level_question == level) {
+                            i++;
+                            var keys = Object.keys(localStorage),
+                                i = keys.length;
+
+                            while (i--) {
+                                var question = localStorage.getItem(keys[i]);
+                                if (question == content.question) {
+                                    //console.log(content.question);
+                                }
+                            }
+                            htmlQuestion += `
+                <div onclick="moveButtonCH(this,'${content.question.replace(/"/g, "dauNhay")}')" >
+                            <tbody width="100%">
+                                <tr>
+                                    <td><b>Câu hỏi: ${content.question} </b></td>
+                                    </br>
+                                </tr>
+                                <input type="hidden" id="CH${i}" value = "${content.question}">
+                `
+                            for (var k = 0; k < content.answer_list.length; k++) {
+                                if (content.answer_list[k] == content.correct_answer) {
+                                    htmlQuestion += `
+            <tr>
+            <td><b>${listABC[k]}. ${content.answer_list[k]}</b></td></br>
+            </tr>
+            `
+                                }
+                                else {
+                                    htmlQuestion += `
+            <tr>
+            <td>${listABC[k]}. ${content.answer_list[k]}</td></br>
+            </tr>
+            `
+                                }
+                            }
+                            htmlQuestion += "</tbody></br></div>";
+                        }
+
+
+                    });
+                }
+            });
+            list_cau_hoi.innerHTML = htmlQuestion;
+        }
+        //var i = 0;
+        function moveButtonCH(elem, value) {
+            var cauHoi = value.replace(new RegExp('dauNhay', 'g'), '"');
+            if ($(elem).parent().attr("id") == "Cau_hoi_chon") {
+                $(elem).detach().appendTo('#list_cau_hoi');
+                //console.log("bo chon");
+                deleteIteamStorageCH(cauHoi)
+
+            }
+            else {
+                $(elem).detach().appendTo('#Cau_hoi_chon');
+                i++;
+                localStorage.setItem(i, cauHoi);
+            }
+        }
+
+        function addQuestionFromExam(i, cauHoi) {
+            localStorage.setItem(i, cauHoi);
+        }
+
+        function moveButton(elem, value) {
+            if ($(elem).parent().attr("id") == "list_lop_tham_gia") {
+                $(elem).detach().appendTo('#list_class');
+                deleteIteamStorage(value)
+            }
+            else {
+                $(elem).detach().appendTo('#list_lop_tham_gia');
+                classChoose.push(value);
+                localStorage.setItem("classChoose", JSON.stringify(classChoose));
+            }
+        }
+
+        function createListQuestionForExam() {
+            var listQuestionOfExam = [];
+            questionListOfData.forEach(data => {
+                data.question_list.forEach(content => {
+                    var keys = Object.keys(localStorage),
+                        i = keys.length;
+                    do {
+                        var question = localStorage.getItem(keys[i]);
+                        if (question == content.question) {
+                            listQuestionOfExam.push(content);
+                        }
+                    } while (i--)
+                })
+            })
+            return listQuestionOfExam;
+        }
+
+        function allStorage() {
+            var values = [],
+                keys = Object.keys(localStorage),
+                i = keys.length;
+
+            while (i--) {
+                values.push(localStorage.getItem(keys[i]));
+            }
+
+            return values;
+        }
+
+        function deleteIteamStorageCH(value) {
+            var keys = Object.keys(localStorage),
+                i = keys.length;
+
+            while (i--) {
+                var question = localStorage.getItem(keys[i]);
+                if (question == value) {
+                    localStorage.removeItem(keys[i]);
+                }
+            }
+        }
+
+        function deleteIteamStorage(value) {
+            for (var i = 0; i < classChoose.length; i++) {
+                if (classChoose[i] == value) {
+                    classChoose.splice(i, 1);
+                }
+            }
+            localStorage.setItem("classChoose", JSON.stringify(classChoose));
+        }
+    </script>
+</body>
+
+</html>

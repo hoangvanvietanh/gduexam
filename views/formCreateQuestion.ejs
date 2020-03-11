@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Tạo câu hỏi</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/Google-Style-Text-Input.css">
+    <link rel="stylesheet" href="/css/select.css">
+    <link rel="stylesheet" href="/css/Studious-selectbox.css">
+    <script src="/ckeditor5/ckeditor.js"></script>
+    <script type="text/javascript" src="http://latex.codecogs.com/editor.js"></script>
+</head>
+
+<body>
+    <!--Navbar -->
+    <nav class="mb-1 navbar navbar-expand-lg navbar-dark orange lighten-1" style="background-color: #002f69">
+        <a class="navbar-brand" href="#"><b>Gia Dinh University</b></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
+            aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+            <ul class="navbar-nav mr-auto" style="position: absolute;left: 50%;">
+                <li class="nav-item active">
+
+                    <a class="nav-link" href="#">
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto nav-flex-icons">
+                <li class="nav-item avatar">
+                    <a class="nav-link p-0" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <img src="/img/andanh.png" class="rounded-circle z-depth-0" alt="avatar image" height="35">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
+                        aria-labelledby="navbarDropdownMenuLink-55">
+                        <a class="dropdown-item" href="#">Tài khoản</a>
+                        <a class="dropdown-item" href="/users/logout">Đăng xuất</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!--/.Navbar -->
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/admin/home">Trang chủ</a></li>
+                <li class="breadcrumb-item"><a href="/admin/question">Câu hỏi</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Tạo câu hỏi</li>
+            </ol>
+        </nav>
+        <h4 class="text-center">Tạo câu hỏi</h4>
+        <div class="row">
+            <div class="col">
+                <form style="margin-top: 8px;">
+                    <div class="field"><select class="form-control"
+                            style="border: none;border-bottom: 1px solid #757575;" id="subject"
+                            onchange="chooseSubject()">
+                            <optgroup label="Chọn môn học" id="list_subject">
+
+                            </optgroup>
+                        </select></div>
+                </form>
+                <!-- <form style="margin-top: 8px;">
+                    <div class="field"><select class="form-control"
+                            style="border: none;border-bottom: 1px solid #757575;border-radius: 0;" id="correctAnswer">
+                            <optgroup label="Câu trả lời đúng">
+                                <option value="1" selected> Câu trả lời 1 đúng</option>
+                                <option value="2">Câu trả lời 2 đúng</option>
+                                <option value="3">Câu trả lời 3 đúng</option>
+                                <option value="4">Câu trả lời 4 đúng</option>
+                            </optgroup>
+                        </select></div>
+                </form> -->
+            </div>
+            <div class="col">
+                <form style="margin-top: 8px;">
+                    <div class="field"><select class="form-control"
+                            style="border: none;border-bottom: 1px solid #757575;border-radius: 0;"
+                            id="levelOfQuestion">
+                            <optgroup label="Chọn mức độ câu hỏi">
+                                <option value="1" selected> Dễ</option>
+                                <option value="2">Trung bình</option>
+                                <option value="3">Khó</option>
+                                <option value="4">Cực khó</option>
+                            </optgroup>
+                        </select></div>
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col">
+                <a href="javascript:OpenLatexEditor('question','html','')">
+                    Launch CodeCogs Equation Editor
+                </a>
+                <div id="totalAllQuestion"></div>
+                <div class="group" style="margin-bottom: 45px;"><textarea id="question" onchange="checkQuestion()"
+                        required></textarea></div>
+                <button type="button" class="btn btn-primary" id="btnCheckQuestion">Kiểm tra câu hỏi trùng</button>
+            </div>
+            <!-- <div class="col">
+                <div class="form-group">
+                    <img src="https://dv-media-vietanh.herokuapp.com/<%= user.student_code %>.png"
+                        id="Th_Hinh_Xem_truoc" style="width:10rem" />
+                    <input id="Th_file" type="file" onchange="Xem_truoc_Media()" accept="image/png" />
+                </div>
+            </div> -->
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="group" style="margin-bottom: 45px;"><input type="radio" id="checkAnswer1" name="answer"
+                        value="1" checked><label for="checkAnswer1">Chọn đáp án đúng</label><textarea id="answer1"
+                        required></textarea>
+                </div>
+                <div class="group" style="margin-bottom: 45px;"><input type="radio" id="checkAnswer2" name="answer"
+                        value="2"><label for="checkAnswer2">Chọn đáp án đúng</label><textarea id="answer2"
+                        required></textarea>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="group" style="margin-bottom: 45px;"><input type="radio" id="checkAnswer3" name="answer"
+                        value="3"><label for="checkAnswer3">Chọn đáp án đúng</label><textarea id="answer3" type="text"
+                        required></textarea>
+                </div>
+                <div class="group"><input type="radio" id="checkAnswer4" name="answer" value="4"><label
+                        for="checkAnswer4">Chọn đáp án đúng</label><textarea id="answer4" required></textarea>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="btn btn-primary" style="width: 100%;" id="btnCreateQuestion">Tạo câu hỏi</button>
+    </div>
+
+    <script src="/js/jquery-3.3.1.slim.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/Studious-selectbox.js"></script>
+    <script src="/business/dataForAdmin.js"></script>
+
+    <script>
+        var questionFromCKEditor = "";
+        ClassicEditor
+            .create(document.querySelector('#question'), {
+                cloudServices: {
+                    tokenUrl: 'https://64369.cke-cs.com/token/dev/iV6gjo7DhPeQbFzkKnwE3pifmZdcFBLph39tq1cdQjAghvOcGl0x1IleAUse',
+                    uploadUrl: 'https://64369.cke-cs.com/easyimage/upload/'
+                },
+                toolbar: {
+                    items: [
+                        'MathType',
+                        'ChemType',
+                        'heading',
+                        'CKFinder',
+                        '|',
+                        'bold',
+                        'italic',
+                        'bulletedList',
+                        'numberedList',
+                        '|',
+                        'indent',
+                        'outdent',
+                        '|',
+                        'imageUpload',
+                        'blockQuote',
+                        'insertTable',
+                        'mediaEmbed',
+                        'undo',
+                        'redo',
+                        'link'
+
+                    ]
+                },
+                language: 'vi',
+                image: {
+                    toolbar: [
+                        'imageTextAlternative',
+                        'imageStyle:full',
+                        'imageStyle:side'
+                    ]
+                },
+                table: {
+                    contentToolbar: [
+                        'tableColumn',
+                        'tableRow',
+                        'mergeTableCells'
+                    ]
+                },
+                licenseKey: '',
+
+            })
+            .then(editor => {
+                questionFromCKEditor = editor;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+
+    <script>
+        var answerFromCKEditor1 = "";
+        var answerFromCKEditor2 = "";
+        var answerFromCKEditor3 = "";
+        var answerFromCKEditor4 = "";
+        ClassicEditor
+            .create(document.querySelector(`#answer1`), {
+
+                toolbar: {
+                    items: [
+                        'MathType',
+                        'ChemType',
+                        'heading',
+                        'CKFinder',
+                        '|',
+                        'bold',
+                        'italic',
+                        'bulletedList',
+                        'numberedList',
+                        '|',
+                        'indent',
+                        'outdent',
+                        '|',
+                        'imageUpload',
+                        'blockQuote',
+                        'insertTable',
+                        'mediaEmbed',
+                        'undo',
+                        'redo',
+                        'link'
+
+                    ]
+                },
+                language: 'vi',
+                image: {
+                    toolbar: [
+                        'imageTextAlternative',
+                        'imageStyle:full',
+                        'imageStyle:side'
+                    ]
+                },
+                table: {
+                    contentToolbar: [
+                        'tableColumn',
+                        'tableRow',
+                        'mergeTableCells'
+                    ]
+                },
+                licenseKey: '',
+
+            })
+            .then(editor => {
+                answerFromCKEditor1 = editor;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+        ClassicEditor
+            .create(document.querySelector(`#answer2`), {
+
+                toolbar: {
+                    items: [
+                        'MathType',
+                        'ChemType',
+                        'heading',
+                        'CKFinder',
+                        '|',
+                        'bold',
+                        'italic',
+                        'bulletedList',
+                        'numberedList',
+                        '|',
+                        'indent',
+                        'outdent',
+                        '|',
+                        'imageUpload',
+                        'blockQuote',
+                        'insertTable',
+                        'mediaEmbed',
+                        'undo',
+                        'redo',
+                        'link'
+
+                    ]
+                },
+                language: 'vi',
+                image: {
+                    toolbar: [
+                        'imageTextAlternative',
+                        'imageStyle:full',
+                        'imageStyle:side'
+                    ]
+                },
+                table: {
+                    contentToolbar: [
+                        'tableColumn',
+                        'tableRow',
+                        'mergeTableCells'
+                    ]
+                },
+                licenseKey: '',
+
+            })
+            .then(editor => {
+                answerFromCKEditor2 = editor;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+        ClassicEditor
+            .create(document.querySelector(`#answer3`), {
+
+                toolbar: {
+                    items: [
+                        'MathType',
+                        'ChemType',
+                        'heading',
+                        'CKFinder',
+                        '|',
+                        'bold',
+                        'italic',
+                        'bulletedList',
+                        'numberedList',
+                        '|',
+                        'indent',
+                        'outdent',
+                        '|',
+                        'imageUpload',
+                        'blockQuote',
+                        'insertTable',
+                        'mediaEmbed',
+                        'undo',
+                        'redo',
+                        'link'
+
+                    ]
+                },
+                language: 'vi',
+                image: {
+                    toolbar: [
+                        'imageTextAlternative',
+                        'imageStyle:full',
+                        'imageStyle:side'
+                    ]
+                },
+                table: {
+                    contentToolbar: [
+                        'tableColumn',
+                        'tableRow',
+                        'mergeTableCells'
+                    ]
+                },
+                licenseKey: '',
+
+            })
+            .then(editor => {
+                answerFromCKEditor3 = editor;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+        ClassicEditor
+            .create(document.querySelector(`#answer4`), {
+
+                toolbar: {
+                    items: [
+                        'MathType',
+                        'ChemType',
+                        'heading',
+                        'CKFinder',
+                        '|',
+                        'bold',
+                        'italic',
+                        'bulletedList',
+                        'numberedList',
+                        '|',
+                        'indent',
+                        'outdent',
+                        '|',
+                        'imageUpload',
+                        'blockQuote',
+                        'insertTable',
+                        'mediaEmbed',
+                        'undo',
+                        'redo',
+                        'link'
+
+                    ]
+                },
+                language: 'vi',
+                image: {
+                    toolbar: [
+                        'imageTextAlternative',
+                        'imageStyle:full',
+                        'imageStyle:side'
+                    ]
+                },
+                table: {
+                    contentToolbar: [
+                        'tableColumn',
+                        'tableRow',
+                        'mergeTableCells'
+                    ]
+                },
+                licenseKey: '',
+
+            })
+            .then(editor => {
+                answerFromCKEditor4 = editor;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+    <script>
+
+        var htmlListSubject = "";
+        var subjectChossed = localStorage.getItem("subjectChoosed");
+        listSubject.forEach(subject => {
+            if (subject.subject_name == subjectChossed) {
+                htmlListSubject += `<option value="${subject.subject_name}" selected>${subject.subject_name}</option>`;
+            }
+            else {
+                htmlListSubject += `<option value="${subject.subject_name}" >${subject.subject_name}</option>`;
+            }
+        })
+        list_subject.innerHTML = htmlListSubject;
+
+        chooseSubject();
+        function chooseSubject() {
+            var getSubject = document.getElementById("subject").value;
+            localStorage.setItem("subjectChoosed", getSubject);
+            var flag = 0;
+            questionListOfData.forEach(data => {
+                if (data.subject == getSubject) {
+                    flag++;
+                    totalAllQuestion.innerHTML = "Tổng số câu: " + data.question_list.length;
+                }
+            })
+            if(flag == 0)
+            {
+                totalAllQuestion.innerHTML = "Tổng số câu: 0"
+            }
+        }
+
+
+
+        btnCreateQuestion.onclick = () => {
+            var findCorrectAnswer = document.getElementsByName("answer");
+            var levelOfQuestion = document.getElementById("levelOfQuestion").value;
+            var answer1 = answerFromCKEditor1.getData();
+            var answer2 = answerFromCKEditor2.getData();
+            var answer3 = answerFromCKEditor3.getData();
+            var answer4 = answerFromCKEditor4.getData();
+
+            var question = questionFromCKEditor.getData();
+
+            var getSubject = document.getElementById("subject").value;
+            var libraryQuestion = {}
+            var checkSubjectAlready = false;
+
+            questionListOfData.forEach(data => {
+                if (data.subject == getSubject) {
+
+
+
+
+                    var countLengthListQuestion = data.question_list.length;
+
+                    var infoOfQuestion = "_idquestion" + countLengthListQuestion++;
+
+                    var answerList = [answer1 + infoOfQuestion + "_1", answer2 + infoOfQuestion + "_2", answer3 + infoOfQuestion + "_3", answer4 + infoOfQuestion + "_4"];
+
+                    // var randomForImage = Math.floor(Math.random() * 100000);
+                    // var Chuoi_nhi_phan = "";
+                    // var Ten_Hinh = "";
+                    // Chuoi_nhi_phan = Th_Hinh_Xem_truoc.src;
+                    var questionInList = {}
+                    // if (Chuoi_nhi_phan.length > 1000) {
+                    //     questionInList.question = question + "_" + randomForImage + ".png";
+                    //     Ten_Hinh = `${randomForImage}.png`;
+                    // }
+                    // else {
+
+                    // }
+                    var correctAnswer = "";
+                    for (i = 0; i < findCorrectAnswer.length; i++) {
+                        if (findCorrectAnswer[i].checked) {
+                            correctAnswer = findCorrectAnswer[i].value;
+                        }
+
+                    }
+                    var totalQuestion = infoOfQuestion.substr(11);
+
+                    if (correctAnswer == 1) {
+
+                        questionInList.correct_answer = totalQuestion + "_1";
+                    }
+                    else if (correctAnswer == 2) {
+                        questionInList.correct_answer = totalQuestion + "_2";
+                    }
+                    else if (correctAnswer == 3) {
+                        questionInList.correct_answer = totalQuestion + "_3";
+                    }
+                    else {
+                        questionInList.correct_answer = totalQuestion + "_4";
+                    }
+                    questionInList.question = question + infoOfQuestion;
+                    questionInList.answer_list = answerList;
+                    questionInList.level_question = levelOfQuestion;
+
+                    var questionList = [questionInList]
+
+
+                    libraryQuestion.question_list = questionList;
+                    libraryQuestion.subject = getSubject;
+
+
+                    data.question_list.push(questionInList)
+                    libraryQuestion.question_list = data.question_list;
+                    //console.log(libraryQuestion)
+                    Them_Cau_hoi(libraryQuestion);
+                    // if (Chuoi_nhi_phan.length > 1000) {
+                    //     var Doi_tuong = { "Ten": Ten_Hinh, "Chuoi_nhi_phan": Chuoi_nhi_phan }
+                    //     Kq = Ghi_Media(Doi_tuong)
+                    // }
+                    checkSubjectAlready = true;
+                }
+
+            })
+            if (checkSubjectAlready == false) {
+
+                var answerList = [answer1 + "_idquestion0_1", answer2 + "_idquestion0_2", answer3 + "_idquestion0_3", answer4 + "_idquestion0_4"];
+
+                // var randomForImage = Math.floor(Math.random() * 100000);
+                // var Chuoi_nhi_phan = "";
+                // var Ten_Hinh = "";
+                // Chuoi_nhi_phan = Th_Hinh_Xem_truoc.src;
+                var questionInList = {}
+                // if (Chuoi_nhi_phan.length > 1000) {
+                //     questionInList.question = question + "_" + randomForImage + ".png";
+                //     Ten_Hinh = `${randomForImage}.png`;
+                // }
+                // else {
+
+                // }
+                var correctAnswer = "";
+                for (i = 0; i < findCorrectAnswer.length; i++) {
+                    if (findCorrectAnswer[i].checked) {
+                        correctAnswer = findCorrectAnswer[i].value;
+                    }
+
+                }
+                if (correctAnswer == 1) {
+
+                    questionInList.correct_answer = "0_1";
+                }
+                else if (correctAnswer == 2) {
+                    questionInList.correct_answer = "0_2";
+                }
+                else if (correctAnswer == 3) {
+                    questionInList.correct_answer = "0_3";
+                }
+                else {
+                    questionInList.correct_answer = "0_4";
+                }
+                questionInList.question = question + "_idquestion0";
+                questionInList.answer_list = answerList;
+                questionInList.level_question = levelOfQuestion;
+
+                var questionList = [questionInList]
+
+
+                libraryQuestion.question_list = questionList;
+                libraryQuestion.subject = getSubject;
+                console.log(getSubject)
+                Them_Cau_hoi_Mon_moi(libraryQuestion);
+            }
+
+            document.location.href = "/admin/createQuestion"
+        }
+
+        btnCheckQuestion.onclick = () => {
+            var flag = 0;
+            var getSubject = document.getElementById("subject").value;
+            var questionFromCK = questionFromCKEditor.getData();
+            questionListOfData.forEach(data => {
+                if (data.subject == getSubject) {
+                    data.question_list.forEach(content => {
+                        var question = content.question.split("_idquestion")
+                        if (questionFromCK == question[0]) {
+                            flag++;
+                        }
+                    })
+                }
+            })
+            if (flag == 0) {
+                btnCheckQuestion.innerHTML = "Hợp lệ - Bấm check lại"
+                btnCheckQuestion.style.backgroundColor = "green"
+            }
+            else {
+                btnCheckQuestion.innerHTML = "Câu đã tồn tại-Bấm check lại"
+                btnCheckQuestion.style.backgroundColor = "red"
+            }
+
+        }
+
+
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150192457-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-150192457-1');
+    </script>
+
+</body>
+
+</html>
