@@ -4,6 +4,7 @@ const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const fs = require('fs');
 const app = express();
 const options = {
   key: fs.readFileSync('/etc/letsencrypt/live/daihocgiadinh.com.vn/privkey.pem'),
