@@ -5,13 +5,6 @@ var Dia_chi_Dich_vu = "https://daihocgiadinh.com.vn/"
 var Dia_chi_Media = "https://dv-media-vietanh.herokuapp.com/"
 
 var studentCode = localStorage.getItem("student_code");
-createSocket(studentCode);
-
-function createSocket(studentCode) {
-    loginNewUser(studentCode);
-    getConnectionWebSocket(studentCode);
-    logoutOldUser(studentCode);
-}
 
 function Ghi_Media(Hinh) {
     console.log("ok ghi")
@@ -49,25 +42,6 @@ function Ghi_nhat_ky(Nhat_ky) {
     return Kq
 }
 
-function getConnectionWebSocket(studentCode) {
-    var connection = new WebSocket("wss://daihocgiadinh.com.vn/");
-    //var connection = new WebSocket("ws://localhost:1200/");
-    connection.onopen = function (message) {
-        connection.send(studentCode);
-    };
-
-    connection.onmessage = function (message) {
-        try {
-            var mssv = JSON.parse(message.data).data
-            if (mssv == studentCode) {
-                logoutOldUser(studentCode);
-            }
-        } catch (error) {
-
-        }
-
-    };
-}
 function imageExists(image_url) {
 
     var http = new XMLHttpRequest();
@@ -89,94 +63,9 @@ function checkKeyConnect() {
 
 }
 
-function loginNewUser(studentCode) {
-    var dsNhatKy = Doc_Danh_sach_Nhat_ky();
-    var key = checkKeyConnect();
-    var nhatKy = {};
-    if (dsNhatKy != undefined) {
-        var flag = 0;
-        for (var i = 0; i < dsNhatKy.length; i++) {
-            if (dsNhatKy[i].student_code == studentCode) {
-                flag++;
-                if ((dsNhatKy[i].status == "active" || dsNhatKy[i].status == "anotherUserLogin") && dsNhatKy[i].keyConnect != localStorage.getItem("keyConnect")) {
-                    nhatKy.student_code = dsNhatKy[i].student_code;
-                    nhatKy.status = "anotherUserLogin";
-                    localStorage.setItem("keyConnect", key);
-                    nhatKy.keyConnect = key;
-                    dsNhatKy[i] = nhatKy;
-                    Ghi_nhat_ky(nhatKy);
-                }
-                else if (dsNhatKy[i].status == "offline") {
-                    nhatKy.student_code = dsNhatKy[i].student_code;
-                    nhatKy.status = "active";
-                    localStorage.setItem("keyConnect", key);
-                    nhatKy.keyConnect = key;
-                    dsNhatKy[i] = nhatKy;
-                    Ghi_nhat_ky(nhatKy);
-                }
-            }
-        }
 
-        if (flag == 0) {
-            nhatKy.student_code = studentCode;
-            nhatKy.status = "active";
-            localStorage.setItem("keyConnect", key);
-            nhatKy.keyConnect = key;
-            Ghi_nhat_ky(nhatKy);
-        }
-    }
 
-}
 
-function logoutOldUser(studentCode) {
-    var nhatKy = {};
-    var dsNhatKy = Doc_Danh_sach_Nhat_ky();
-    var keyLocal = localStorage.getItem("keyConnect");
-    if (dsNhatKy != undefined) {
-        for (var i = 0; i < dsNhatKy.length; i++) {
-            if (dsNhatKy[i].student_code == studentCode) {
-                if (dsNhatKy[i].status == "anotherUserLogin" && dsNhatKy[i].keyConnect != keyLocal) {
-                    nhatKy.student_code = dsNhatKy[i].student_code;
-                    nhatKy.status = "active";
-                    nhatKy.keyConnect = dsNhatKy[i].keyConnect;
-                    dsNhatKy[i] = nhatKy;
-                    Ghi_nhat_ky(nhatKy);
-                    localStorage.removeItem("keyConnect");
-                    document.location.href = "/users/logout";
-                }
-            }
-        }
-    }
-}
-
-function logout(studentCode) {
-    console.log("ok")
-    var dsNhatKy = Doc_Danh_sach_Nhat_ky();
-    var nhatKy = {};
-    if (dsNhatKy != undefined) {
-        var flag = 0;
-        for (var i = 0; i < dsNhatKy.length; i++) {
-            if (dsNhatKy[i].student_code == studentCode) {
-                nhatKy.student_code = dsNhatKy[i].student_code;
-                nhatKy.status = "offline";
-                nhatKy.keyConnect = "";
-                dsNhatKy[i] = nhatKy;
-                Ghi_nhat_ky(nhatKy);
-                localStorage.clear();
-                document.location.href = "/users/logout";
-                flag++;
-            }
-        }
-        if (flag == 0) {
-            nhatKy.student_code = studentCode;
-            nhatKy.status = "offline";
-            nhatKy.keyConnect = "";
-            Ghi_nhat_ky(nhatKy);
-            localStorage.clear();
-            document.location.href = "/users/logout";
-        }
-    }
-}
 
 function checkExamAlready(studentCode) {
     if (localStorage.getItem("timeCount") != undefined && localStorage.getItem("student_code") == studentCode || localStorage.getItem("listQuestionRandom") != undefined) {

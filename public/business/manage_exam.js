@@ -86,25 +86,6 @@ function takeExam(examCode) {
     document.location.href = "take_exam";
 }
 
-function lougout(studentCode) {
-    btnLogout.onclick = () => {
-        var dsNhatKy = Doc_Danh_sach_Nhat_ky();
-        var nhatKy = {};
-        if (dsNhatKy != undefined) {
-            for (var i = 0; i < dsNhatKy.length; i++) {
-                if (dsNhatKy[i].student_code == studentCode) {
-                    nhatKy.student_code = dsNhatKy[i].student_code;
-                    nhatKy.status = "offline";
-                    nhatKy.keyConnect = "";
-                    dsNhatKy[i] = nhatKy;
-                    Ghi_nhat_ky(nhatKy);
-                    localStorage.clear();
-                    document.location.href = "/users/logout";
-                }
-            }
-        }
-    }
-}
 
 function Get_date_now() {
     var today = new Date();

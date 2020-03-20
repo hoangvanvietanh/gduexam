@@ -556,19 +556,6 @@ function nopBaiThi(SinhVien) {
     post("/exam/take_exam", duLieu);
     createReport(SinhVien.full_name, SinhVien.student_code, SinhVien.student_class.class_name, SinhVien.student_class.faculty, SinhVien.identity_card_number, SinhVien.sex, SinhVien.date_of_birth, SinhVien.place_of_birth, examCode, mon_hoc.innerHTML, `${numberOfCorrectSentences}/${totalNumberOfSentences}`, `${scores.toFixed(2)}`, ngay_lam.innerHTML)
 
-    var dsNhatKy = Doc_Danh_sach_Nhat_ky();
-    var nhatKy = {};
-    if (dsNhatKy != undefined) {
-        for (var i = 0; i < dsNhatKy.length; i++) {
-            if (dsNhatKy[i].student_code == studentCode) {
-                nhatKy.student_code = dsNhatKy[i].student_code;
-                nhatKy.status = "offline";
-                nhatKy.keyConnect = "";
-                dsNhatKy[i] = nhatKy;
-                Ghi_nhat_ky(nhatKy);
-            }
-        }
-    }
     alert("Bạn có 10 giây kể từ lúc thông báo này để xem lại đáp án đúng trước khi tự động logout");
 }
 
