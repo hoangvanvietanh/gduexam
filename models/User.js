@@ -13,7 +13,7 @@ function Doc_Danh_sach_Sinh_vien() {
     var Chuoi_JSON = Xu_ly_HTTP.responseText
     if (Chuoi_JSON != "")
     console.log(Du_lieu)
-        Du_lieu = JSON.parse(JSON.stringify(Chuoi_JSON))
+        Du_lieu = JSON.parse(Chuoi_JSON)
         console.log(Du_lieu)
     return Du_lieu
 }
