@@ -1,4 +1,7 @@
-var Dia_chi_Dich_vu = "http://125.234.139.153:80/"
+//var Dia_chi_Dich_vu = "https://dv-webtracnghiem.herokuapp.com/"
+var Dia_chi_Dich_vu = "http://172.16.26.26:1200/"
+//var Dia_chi_Dich_vu = "http://localhost:1200"
+//var Dia_chi_Media = "http://localhost:1100"
 var Dia_chi_Media = "https://dv-media-vietanh.herokuapp.com/"
 
 var questionListOfData = Doc_Thu_vien_Cau_hoi().Danh_sach_Cau_hoi;
