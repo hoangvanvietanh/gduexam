@@ -218,6 +218,7 @@ router.post('/admin/createExam', (req, res, next) => {
   var Dia_chi_Xu_ly = `${Dia_chi_Dich_vu}?${Tham_so}`
   Xu_ly_HTTP.open("POST", Dia_chi_Xu_ly, false)
   var Chuoi_goi = JSON.stringify(req.body)
+  
   Xu_ly_HTTP.send(Chuoi_goi)
   Kq = Xu_ly_HTTP.responseText
 
