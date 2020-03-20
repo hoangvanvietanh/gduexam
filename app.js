@@ -1,4 +1,5 @@
 const https = require('https');
+const http = require('http');
 const express = require('express');
 const passport = require('passport');
 const flash = require('connect-flash');
@@ -51,7 +52,10 @@ app.use('/users', require('./routes/users.js'));
 app.use('/admin', require('./routes/admin.js'));
 
 const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 var httpsServer = https.createServer(options, app);
+var httpServer = https.createServer(app);
 
 
 httpsServer.listen(PORT, console.log(`Server started on port ${PORT}`));
+httpServer.listen(PORT, console.log(`Server started on port ${PORT}`));
