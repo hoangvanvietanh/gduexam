@@ -7,10 +7,10 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const app = express();
-const options = {
-  key: fs.readFileSync('/etc/letsencrypt/live/daihocgiadinh.vn/privkey.pem'),
-  cert: fs.readFileSync('/etc/letsencrypt/live/daihocgiadinh.vn/fullchain.pem')
-};
+// const options = {
+//   key: fs.readFileSync('/etc/letsencrypt/live/daihocgiadinh.vn/privkey.pem'),
+//   cert: fs.readFileSync('/etc/letsencrypt/live/daihocgiadinh.vn/fullchain.pem')
+// };
 // Passport Config
 require('./config/passport')(passport);
 //require('./config/passportForAdmin')(passport);
@@ -53,7 +53,7 @@ app.use('/admin', require('./routes/admin.js'));
 
 const PORT = process.env.PORT || 5000;
 const PORT2 = process.env.PORT || 5001;
-var httpsServer = https.createServer(options, app);
+//var httpsServer = https.createServer(options, app);
 var httpServer = https.createServer(app);
 
 
