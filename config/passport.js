@@ -16,7 +16,8 @@ module.exports = function (passport) {
   passport.use(
     new LocalStrategy({ usernameField: 'student_code' }, (student_code, password, done) => {
       var flag = 0;
-      ListStudents.forEach(student => {
+      var hocSinh = JSON.parse(ListStudents);
+      hocSinh.forEach(student => {
         if (student.student_code == student_code) {
           bcrypt.compare(password, student.password, (err, isMatch) => {
             if (err) throw err;
