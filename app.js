@@ -1,5 +1,4 @@
 const https = require('https');
-const http = require('http');
 const express = require('express');
 const passport = require('passport');
 const flash = require('connect-flash');
@@ -7,10 +6,10 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const app = express();
-// const options = {
-//   key: fs.readFileSync('/etc/letsencrypt/live/daihocgiadinh.vn/privkey.pem'),
-//   cert: fs.readFileSync('/etc/letsencrypt/live/daihocgiadinh.vn/fullchain.pem')
-// };
+const options = {
+  key: fs.readFileSync('/etc/letsencrypt/live/daihocgiadinh.com.vn/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/daihocgiadinh.com.vn/fullchain.pem')
+};
 // Passport Config
 require('./config/passport')(passport);
 //require('./config/passportForAdmin')(passport);
@@ -52,10 +51,7 @@ app.use('/users', require('./routes/users.js'));
 app.use('/admin', require('./routes/admin.js'));
 
 const PORT = process.env.PORT || 5000;
-const PORT2 = process.env.PORT || 5001;
-//var httpsServer = https.createServer(options, app);
-var httpServer = https.createServer(app);
+var httpsServer = https.createServer(options, app);
 
 
-//httpsServer.listen(PORT, console.log(`Server started on port ${PORT}`));
-app.listen(PORT, console.log(`Server started on port ${PORT}`));
+httpsServer.listen(PORT, console.log(`Server started on port ${PORT}`));
