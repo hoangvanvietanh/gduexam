@@ -4,13 +4,12 @@ const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
 const bodyParser = require('body-parser');
-const app = express();
 const fs = require('fs');
-const app = express();
 const options = {
   key: fs.readFileSync('/etc/letsencrypt/live/daihocgiadinh.com.vn/privkey.pem'),
   cert: fs.readFileSync('/etc/letsencrypt/live/daihocgiadinh.com.vn/fullchain.pem')
 };
+const app = express();
 // Passport Config
 require('./config/passport')(passport);
 //require('./config/passportForAdmin')(passport);
