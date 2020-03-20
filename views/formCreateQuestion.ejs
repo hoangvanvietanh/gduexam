@@ -82,7 +82,7 @@
                 <form style="margin-top: 8px;">
                     <div class="field"><select class="form-control"
                             style="border: none;border-bottom: 1px solid #757575;border-radius: 0;"
-                            id="levelOfQuestion">
+                            id="levelOfQuestion" onchange="selectLevel()">
                             <optgroup label="Chọn mức độ câu hỏi">
                                 <option value="1" selected> Dễ</option>
                                 <option value="2">Trung bình</option>
@@ -134,7 +134,7 @@
                 </div>
             </div>
         </div>
-        <button type="button" class="btn btn-primary" style="width: 100%;" id="btnCreateQuestion">Tạo câu hỏi</button>
+        <button type="button" class="btn btn-primary" style="width: 100%;margin-bottom: 10%;" id="btnCreateQuestion">Tạo câu hỏi</button>
     </div>
 
     <script src="/js/jquery-3.3.1.slim.min.js"></script>
@@ -449,8 +449,16 @@
                 totalAllQuestion.innerHTML = "Tổng số câu: 0"
             }
         }
+        var levelChoosed = localStorage.getItem("levelChoosed");
+        if(levelChoosed != undefined)
+        {
+            document.getElementById("levelOfQuestion").selectedIndex = levelChoosed;
+        }
 
-
+        function selectLevel()
+        {
+            localStorage.setItem("levelChoosed", document.getElementById("levelOfQuestion").selectedIndex);
+        }
 
         btnCreateQuestion.onclick = () => {
             var findCorrectAnswer = document.getElementsByName("answer");

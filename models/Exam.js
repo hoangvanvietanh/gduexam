@@ -1,6 +1,6 @@
 //var Dia_chi_Dich_vu = "https://dv-webtracnghiem.herokuapp.com/"
-var Dia_chi_Dich_vu = "https://daihocgiadinh.vn/"
-//var Dia_chi_Dich_vu = "http://localhost:1200"
+//var Dia_chi_Dich_vu = "https://gduexam-service.herokuapp.com/"
+var Dia_chi_Dich_vu = "http://localhost:1200"
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 function Doc_Danh_sach_De_thi() {

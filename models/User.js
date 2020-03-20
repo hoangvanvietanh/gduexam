@@ -1,6 +1,6 @@
 //var Dia_chi_Dich_vu = "https://dv-webtracnghiem.herokuapp.com/"
-var Dia_chi_Dich_vu = "https://daihocgiadinh.vn/"
-//var Dia_chi_Dich_vu = "http://localhost:1200"
+//var Dia_chi_Dich_vu = "https://gduexam-service.herokuapp.com/"
+var Dia_chi_Dich_vu = "http://localhost:1200"
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 function Doc_Danh_sach_Sinh_vien() {
@@ -12,9 +12,7 @@ function Doc_Danh_sach_Sinh_vien() {
     Xu_ly_HTTP.send("")
     var Chuoi_JSON = Xu_ly_HTTP.responseText
     if (Chuoi_JSON != "")
-    console.log(Du_lieu)
         Du_lieu = JSON.parse(Chuoi_JSON)
-        console.log(Du_lieu)
     return Du_lieu
 }
 

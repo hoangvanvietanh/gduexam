@@ -5,8 +5,8 @@ const ListExams = require('../models/Exam');
 const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 const { ensureAuthenticatedAdmin, forwardAuthenticatedAdmin } = require('../config/authForAdmin');
 //var Dia_chi_Dich_vu = "https://dv-webtracnghiem.herokuapp.com/";
-var Dia_chi_Dich_vu = "https://daihocgiadinh.vn/"
-//var Dia_chi_Dich_vu = "http://localhost:1200"
+//var Dia_chi_Dich_vu = "https://gduexam-service.herokuapp.com/"
+var Dia_chi_Dich_vu = "http://localhost:1200"
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
@@ -218,7 +218,6 @@ router.post('/admin/createExam', (req, res, next) => {
   var Dia_chi_Xu_ly = `${Dia_chi_Dich_vu}?${Tham_so}`
   Xu_ly_HTTP.open("POST", Dia_chi_Xu_ly, false)
   var Chuoi_goi = JSON.stringify(req.body)
-
   Xu_ly_HTTP.send(Chuoi_goi)
   Kq = Xu_ly_HTTP.responseText
 

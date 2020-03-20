@@ -4,7 +4,7 @@ var configAuth = require('./config');
 // Load User model
 const ListStudents = require('../models/User');
 //var Dia_chi_Dich_vu = "https://dv-webtracnghiem.herokuapp.com/"
-var Dia_chi_Dich_vu = "https://daihocgiadinh.vn/"
+var Dia_chi_Dich_vu = "https://gduexam-service.herokuapp.com/"
 //var Dia_chi_Dich_vu = "http://localhost:1200"
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 var FacebookStrategy = require('passport-facebook').Strategy;
@@ -75,6 +75,7 @@ module.exports = function (passport) {
             facebook.token = token;
             facebook.email = profile.emails[0].value;
             user.facebook = facebook;
+            
           }
           else if (student.facebook.id == profile.id) {
             user = student;
