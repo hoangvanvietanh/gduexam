@@ -57,5 +57,5 @@ var httpsServer = https.createServer(options, app);
 var httpServer = https.createServer(app);
 
 
-httpsServer.listen(PORT, console.log(`Server started on port ${PORT}`));
-httpServer.listen(PORT2, console.log(`Server started on port ${PORT2}`));
+//httpsServer.listen(PORT, console.log(`Server started on port ${PORT}`));
+httpServer.listen(PORT, console.log(`Server started on port ${PORT}`));
