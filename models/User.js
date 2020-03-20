@@ -1,6 +1,6 @@
 //var Dia_chi_Dich_vu = "https://dv-webtracnghiem.herokuapp.com/"
 //var Dia_chi_Dich_vu = "https://gduexam-service.herokuapp.com/"
-var Dia_chi_Dich_vu = "http://125.234.139.153/"
+var Dia_chi_Dich_vu = "http://172.16.26.26/"
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 function Doc_Danh_sach_Sinh_vien() {
