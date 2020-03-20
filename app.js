@@ -52,10 +52,10 @@ app.use('/users', require('./routes/users.js'));
 app.use('/admin', require('./routes/admin.js'));
 
 const PORT = process.env.PORT || 5000;
-const PORT = process.env.PORT || 5001;
+const PORT2 = process.env.PORT || 5001;
 var httpsServer = https.createServer(options, app);
 var httpServer = https.createServer(app);
 
 
 httpsServer.listen(PORT, console.log(`Server started on port ${PORT}`));
-httpServer.listen(PORT, console.log(`Server started on port ${PORT}`));
+httpServer.listen(PORT2, console.log(`Server started on port ${PORT2}`));
