@@ -6,8 +6,8 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const options = {
-  key: fs.readFileSync('/etc/letsencrypt/live/daihocgiadinh.com.vn/privkey.pem'),
-  cert: fs.readFileSync('/etc/letsencrypt/live/daihocgiadinh.com.vn/fullchain.pem')
+  key: fs.readFileSync('/etc/letsencrypt/live/daihocgiadinh.vn/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/daihocgiadinh.vn/fullchain.pem')
 };
 const app = express();
 // Passport Config

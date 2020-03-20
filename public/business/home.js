@@ -50,7 +50,7 @@ function Ghi_nhat_ky(Nhat_ky) {
 }
 
 function getConnectionWebSocket(studentCode) {
-    var connection = new WebSocket("wss://125.234.139.153/");
+    var connection = new WebSocket("wss://daihocgiadinh.vn/");
     //var connection = new WebSocket("ws://localhost:1200/");
     connection.onopen = function (message) {
         connection.send(studentCode);
