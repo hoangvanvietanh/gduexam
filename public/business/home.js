@@ -1,6 +1,6 @@
 //var Dia_chi_Dich_vu = "https://dv-webtracnghiem.herokuapp.com/"
 //var Dia_chi_Dich_vu = "https://gduexam-service.herokuapp.com/"
-var Dia_chi_Dich_vu = "http://125.234.139.153/"
+var Dia_chi_Dich_vu = "https://daihocgiadinh.vn/"
 //var Dia_chi_Media = "http://localhost:1100"
 var Dia_chi_Media = "https://dv-media-vietanh.herokuapp.com/"
 
