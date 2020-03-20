@@ -1,5 +1,5 @@
 //var Dia_chi_Dich_vu = "https://dv-webtracnghiem.herokuapp.com/"
-var Dia_chi_Dich_vu = "http://172.16.26.26:1200/"
+var Dia_chi_Dich_vu = "http://125.234.139.153:80/"
 //var Dia_chi_Dich_vu = "http://localhost:1200"
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
