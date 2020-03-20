@@ -1,6 +1,6 @@
 //var Dia_chi_Dich_vu = "https://dv-webtracnghiem.herokuapp.com/"
 //var Dia_chi_Dich_vu = "https://gduexam-service.herokuapp.com/"
-var Dia_chi_Dich_vu = "http://172.16.26.26:1200/"
+var Dia_chi_Dich_vu = "http://125.234.139.153/"
 //var Dia_chi_Media = "http://localhost:1100"
 var Dia_chi_Media = "https://dv-media-vietanh.herokuapp.com/"
 
@@ -50,7 +50,7 @@ function Ghi_nhat_ky(Nhat_ky) {
 }
 
 function getConnectionWebSocket(studentCode) {
-    var connection = new WebSocket("wss://172.16.26.26:1200/");
+    var connection = new WebSocket("wss://125.234.139.153/");
     //var connection = new WebSocket("ws://localhost:1200/");
     connection.onopen = function (message) {
         connection.send(studentCode);
