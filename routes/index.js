@@ -266,10 +266,11 @@ router.post('/exam/take_exam', (req, res, next) => {
       var Chuoi_goi = JSON.stringify(student)
       Xu_ly_HTTP.send(Chuoi_goi)
       Kq = Xu_ly_HTTP.responseText
-      
+      res.redirect('/users/login');
       //res.send('POST request to the homepage')
     }
   });
+  res.redirect('/users/login');
 });
 
 module.exports = router;
