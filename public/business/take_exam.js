@@ -553,7 +553,7 @@ function nopBaiThi(SinhVien) {
     duLieu.date = ngay_lam.innerHTML;
     duLieu.exam_score = scores.toFixed(2);
 
-    post("/exam/take_exam", duLieu);
+    //post("/exam/take_exam", duLieu);
     createReport(SinhVien.full_name, SinhVien.student_code, SinhVien.student_class.class_name, SinhVien.student_class.faculty, SinhVien.identity_card_number, SinhVien.sex, SinhVien.date_of_birth, SinhVien.place_of_birth, examCode, mon_hoc.innerHTML, `${numberOfCorrectSentences}/${totalNumberOfSentences}`, `${scores.toFixed(2)}`, ngay_lam.innerHTML)
 
     //alert("Bạn có 10 giây kể từ lúc thông báo này để xem lại đáp án đúng trước khi tự động logout");
