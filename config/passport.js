@@ -16,6 +16,7 @@ module.exports = function (passport) {
   passport.use(
     new LocalStrategy({ usernameField: 'student_code' }, (student_code, password, done) => {
       var flag = 0;
+      console.log("5");
       ListStudents.forEach(student => {
         if (student.student_code == student_code) {
           bcrypt.compare(password, student.password, (err, isMatch) => {
