@@ -37,12 +37,11 @@
                 <li class="nav-item avatar">
                     <a class="nav-link p-0" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
-                        <img src="/img/usertakeexam.png" onerror="this.onerror=null;this.src='/img/student.png';"
+                        <img src="http://graph.facebook.com/<%=user.facebook.id%>/picture?type=square" onerror="this.onerror=null;this.src='/img/student.png';"
                             id="imageid" class="rounded-circle z-depth-0" alt="avatar image" height="35">
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
                         aria-labelledby="navbarDropdownMenuLink-55">
-                        <a class="dropdown-item" href="#">Tài khoản</a>
                         <button type="button" class="dropdown-item" onclick="logout('<%= user.student_code %>')">Đăng
                             xuất</button>
                     </div>
@@ -59,18 +58,17 @@
         <div class="row" >
             <div class="col-md-12 col-lg-9" id="lam_bai_thi">
                 <div class="row">
-                    <div class="col-sm-4">
-                        <button type="button" onclick="goHome()" style="width: 100%;" class="btn btn-primary">Quay
-                            lại</button>
+                    <div class="col-sm-12">
+                        <button type="button" onclick="goHome()" style="width: 100%;" class="btn btn-primary">Quay lại trang chủ</button>
                     </div>
-                    <div class="col-sm-4">
+                    <!-- <div class="col-sm-4">
                         <button type="button" onclick="justShowCorrect()" style="width: 100%;"
                             class="btn btn-primary">Chỉ hiện đáp án đúng</button>
                     </div>
                     <div class="col-sm-4">
                         <button type="button" onclick="showBoth()" style="width: 100%;" class="btn btn-primary">Hiện đáp
                             án mình chọn</button>
-                    </div>
+                    </div> -->
                 </div>
                 <h4 class="text-center"><b>BÀI THI</b></h4>
                 <div id="noi_dung_thi">
