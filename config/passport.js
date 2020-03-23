@@ -3,9 +3,7 @@ const bcrypt = require('bcryptjs');
 var configAuth = require('./config');
 // Load User model
 const ListStudents = require('../models/User');
-//var Dia_chi_Dich_vu = "https://dv-webtracnghiem.herokuapp.com/"
 var Dia_chi_Dich_vu = "http://172.16.26.26:1300/"
-//var Dia_chi_Dich_vu = "http://localhost:1200"
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 var FacebookStrategy = require('passport-facebook').Strategy;
 
@@ -16,7 +14,6 @@ module.exports = function (passport) {
   passport.use(
     new LocalStrategy({ usernameField: 'student_code' }, (student_code, password, done) => {
       var flag = 0;
-      console.log("5");
       ListStudents.forEach(student => {
         if (student.student_code == student_code) {
           bcrypt.compare(password, student.password, (err, isMatch) => {
@@ -56,7 +53,7 @@ module.exports = function (passport) {
         var checkAddUser = 0;
         ListStudents.forEach(student => {
           if (typeof student.facebook === 'undefined') {
-            user.full_name = profile.name.familyName+" "+profile.name.givenName;
+            user.full_name = profile.name.familyName + " " + profile.name.givenName;
             user.student_code = profile.id;
             user.identity_card_number = profile.id;
             user.sex = "Nam";
@@ -64,11 +61,14 @@ module.exports = function (passport) {
             user.place_of_birth = "Chưa cập nhật thông tin";
             user.address = "Chưa cập nhật thông tin";
             user.status = "Đăng ký";
-            user.registration_date = "1-1-2020";
+            var today = new Date();
+            var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+            var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+            user.registration_date = time + " " + date;
             var studentClass = {};
             studentClass.class_name = "Chưa cập nhật thông tin";
             studentClass.major = "Chưa cập nhật thông tin";
-            studentClass.faculty = "Chưa cập nhật tin";
+            studentClass.faculty = "Chưa cập nhật thông tin";
             user.student_class = studentClass;
             user.marks = [];
             var facebook = {};
@@ -76,7 +76,7 @@ module.exports = function (passport) {
             facebook.token = token;
             facebook.email = profile.emails[0].value;
             user.facebook = facebook;
-            
+
           }
           else if (student.facebook.id == profile.id) {
             user = student;

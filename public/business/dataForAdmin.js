@@ -1,7 +1,4 @@
-//var Dia_chi_Dich_vu = "https://dv-webtracnghiem.herokuapp.com/"
-//var Dia_chi_Dich_vu = "https://gduexam-service.herokuapp.com/"
 var Dia_chi_Dich_vu = "https://daihocgiadinh.com.vn/"
-//var Dia_chi_Media = "http://localhost:1100"
 var Dia_chi_Media = "https://dv-media-vietanh.herokuapp.com/"
 
 var questionListOfData = Doc_Thu_vien_Cau_hoi().Danh_sach_Cau_hoi;
@@ -24,7 +21,7 @@ function Doc_Danh_sach_De_thi() {
 }
 
 function Ghi_Media(Hinh) {
-    console.log("ok ghi")
+    //console.log("ok ghi")
     var Xu_ly_HTTP = new XMLHttpRequest()
     var Dia_chi_Xu_ly = `${Dia_chi_Media}`
     Xu_ly_HTTP.open("POST", Dia_chi_Xu_ly, false)

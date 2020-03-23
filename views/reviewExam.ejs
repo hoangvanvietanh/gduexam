@@ -33,12 +33,6 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
-            <ul class="navbar-nav mr-auto" style="position: absolute;left: 43%;">
-                <li class="nav-item active">
-                    <h1 id="time_count" class="text-center" style="color: white"></h1>
-                </li>
-
-            </ul>
             <ul class="navbar-nav ml-auto nav-flex-icons">
                 <li class="nav-item avatar">
                     <a class="nav-link p-0" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
@@ -48,7 +42,9 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
                         aria-labelledby="navbarDropdownMenuLink-55">
-                        <button type="button" class="dropdown-item" onclick="nop_bai.click()">Nộp bài</button>
+                        <a class="dropdown-item" href="#">Tài khoản</a>
+                        <button type="button" class="dropdown-item" onclick="logout('<%= user.student_code %>')">Đăng
+                            xuất</button>
                     </div>
                 </li>
                 <li class="nav-item">
@@ -59,9 +55,23 @@
         </div>
     </nav>
     <!--/.Navbar -->
-    <div class="container-fluid">
-        <div class="row">
+    <div class="container-fluid" >
+        <div class="row" >
             <div class="col-md-12 col-lg-9" id="lam_bai_thi">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <button type="button" onclick="goHome()" style="width: 100%;" class="btn btn-primary">Quay
+                            lại</button>
+                    </div>
+                    <div class="col-sm-4">
+                        <button type="button" onclick="justShowCorrect()" style="width: 100%;"
+                            class="btn btn-primary">Chỉ hiện đáp án đúng</button>
+                    </div>
+                    <div class="col-sm-4">
+                        <button type="button" onclick="showBoth()" style="width: 100%;" class="btn btn-primary">Hiện đáp
+                            án mình chọn</button>
+                    </div>
+                </div>
                 <h4 class="text-center"><b>BÀI THI</b></h4>
                 <div id="noi_dung_thi">
 
@@ -129,6 +139,7 @@
                         </b>
                     </div>
                 </div>
+
             </div>
         </div>
         <input type="hidden" id="btnLogout">
@@ -149,56 +160,65 @@
                             <div id="tongCauHoi2" style="display: inline-block;"></div>
                         </div>
                         <div class="col-sm-2">
+
                         </div>
                     </div>
                     <div class="modal-body">
+
                         <div id="tien_do2" class="tiendo"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-
-    <!-- Button trigger modal -->
-    <input type="hidden" class="btn btn-primary hidden" data-toggle="modal" data-target="#modelId"></input>
-    <!-- Modal -->
-    <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-        <div class="modal-dialog" style="max-width: 100%;margin: 0px;" role="document">
-            <div class="modal-content" style="height: 100%;">
-                <div class="modal-header text-center">
-                    <h2 class="modal-title w-100">Nội quy thi</h2>
-                </div>
-                <div class="modal-body" style="height: 88vh;">
-                    <div style="margin: auto;width: 60%;">
-                        <h4>1. Nghiêm túc thực hiện bài thi.</h4>
-                        <h4>2. Để tránh sai sót thí sinh không nên mở web ở nhiều tab, chỉ sử dụng 1 tab.</h4>
-                        <h4>3. Do chương trình đang trong quá trình chạy thử nghiệm.</h4>
-                        <h4>4. Các bạn có thể góp ý cho mình tại gmail: hoangvanvietanh@gmail.com.</h4>
-                        <h4>Chúc các bạn thí sinh thi tốt ^^</h4>
-                        <button type="button" style="width:100%" class="btn btn-primary" id="noiQuyThi"
-                            data-dismiss="modal">Bắt đầu làm bài thi</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <input type="hidden" id="idUser" value="<%=infoUser%>">
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <input type="hidden" id="myListMarks" value="<%=markList%>" />
+    <input type="hidden" id="myMarksReview" value="<%=marksReview%>" />
     <script src="/js/jquery-3.3.1.slim.min.js"></script>
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/business/home.js"></script>
     <script src="/text/createPDF.js"></script>
-    <script src="/business/take_exam.js"></script>
+    <script src="/business/reviewExam.js"></script>
     <script src="/js/jspdf.min.js"></script>
     <script>
-        if(time_count.innerHTML == "0:0" || thoi_gian.innerHTML == "" || ngay_lam.innerHTML == "")
-        {
-            localStorage.clear();
-            document.location.href = "/users/home";
+        
+        var marksList = JSON.parse(myListMarks.value);
+        var marksReview = JSON.parse(myMarksReview.value);
+        //console.log(marksList);
+        //console.log(marksReview);
+        if (marksList == "modeReview") {
+            createExamHTMLForTrainning(marksReview.examData, marksReview.listAnswer);
+            noi_dung_thi.innerHTML = html;
+            tien_do.innerHTML = htmlTienDo;
+            tien_do2.innerHTML = htmlTienDo;
+            bam_nop_bai.innerHTML = `<button type="button" class="btn btn-primary" style="width: 100%;background-color:#214a80" id="nop_bai">Nộp bài</button>`
+            soCauLam2.innerHTML = `0 /`
+
+            gradingExam(marksReview.examData)
         }
+        else {
+            var examCodeReview = localStorage.getItem("examCodeReview");
+            //console.log(examCodeReview)
+            
+            marksList.forEach(mark => {
+                //console.log(mark)
+                if (mark.examData.exam_code == examCodeReview) {
+                    createExamHTMLForTrainning(mark.examData, mark.listAnswer);
+
+                    noi_dung_thi.innerHTML = html;
+                    tien_do.innerHTML = htmlTienDo;
+                    tien_do2.innerHTML = htmlTienDo;
+                    bam_nop_bai.innerHTML = `<button type="button" class="btn btn-primary" style="width: 100%;background-color:#214a80" id="nop_bai">Nộp bài</button>`
+                    soCauLam2.innerHTML = `0 /`
+
+                    gradingExam(mark.examData)
+                }
+            });
+        }
+        document.getElementById("myListMarks").remove();
+        document.getElementById("myMarksReview").remove();
     </script>
 </body>
 

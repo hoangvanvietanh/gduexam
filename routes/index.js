@@ -4,9 +4,7 @@ const ListStudents = require('../models/User');
 const ListExams = require('../models/Exam');
 const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 const { ensureAuthenticatedAdmin, forwardAuthenticatedAdmin } = require('../config/authForAdmin');
-//var Dia_chi_Dich_vu = "https://dv-webtracnghiem.herokuapp.com/";
-//var Dia_chi_Dich_vu = "https://gduexam-service.herokuapp.com/"
-var Dia_chi_Dich_vu = "http://125.234.139.153/"
+var Dia_chi_Dich_vu = "http://172.16.26.26:1300/"
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
@@ -14,6 +12,8 @@ const passport = require('passport');
 router.get('/', forwardAuthenticated, (req, res) => res.render('welcome'));
 
 router.get('/users', forwardAuthenticated, (req, res) => res.render('login'));
+
+router.get('/users/sign-up', forwardAuthenticated, (req, res) => res.render('sign_up'));
 
 router.get('/exam', forwardAuthenticated, (req, res) => res.render('login'));
 
@@ -41,13 +41,6 @@ router.get('/exam/manage_exam', ensureAuthenticated, (req, res) =>
   }),
 );
 
-router.get('/exam/trainning', ensureAuthenticated, (req, res) =>
-  res.render('trainning', {
-    user: req.user,
-    examList: JSON.stringify(ListExams)
-  }),
-);
-
 router.get('/exam/take_exam', ensureAuthenticated, (req, res) =>
   res.render('take_exam', {
     user: req.user,
@@ -58,7 +51,16 @@ router.get('/exam/take_exam', ensureAuthenticated, (req, res) =>
 
 router.get('/users/home', ensureAuthenticated, (req, res) =>
   res.render('home', {
-    user: req.user
+    user: req.user,
+    markList: JSON.stringify(req.user.marks)
+  })
+);
+
+router.get('/exam/review_exam', ensureAuthenticated, (req, res) =>
+  res.render('reviewExam', {
+    user: req.user,
+    marksReview: JSON.stringify("nothing"),
+    markList: JSON.stringify(req.user.marks)
   })
 );
 
@@ -254,23 +256,18 @@ router.post('/admin/updateExam', (req, res, next) => {
 
 });
 
-router.post('/exam/take_exam', (req, res, next) => {
-  ListStudents.forEach(student => {
-    if (student.student_code == req.user.student_code) {
-      student.marks.push(req.body);
-      var Kq = ""
-      var Xu_ly_HTTP = new XMLHttpRequest()
-      var Tham_so = `Ma_so_Xu_ly=Cap_nhat_Diem_Sinh_vien`
-      var Dia_chi_Xu_ly = `${Dia_chi_Dich_vu}?${Tham_so}`
-      Xu_ly_HTTP.open("POST", Dia_chi_Xu_ly, false)
-      var Chuoi_goi = JSON.stringify(student)
-      Xu_ly_HTTP.send(Chuoi_goi)
-      Kq = Xu_ly_HTTP.responseText
-      res.redirect('/users/logout');
-      //res.send('POST request to the homepage')
-    }
-  });
-  res.redirect('/users/logout');
+router.post('/exam/review_exam', (req, res, next) => {
+  //console.log(JSON.parse(req.body.marks))
+  var marksAdd = JSON.parse(req.body.marks);
+  req.user.marks.push(marksAdd);
+
+  res.render('reviewExam', {
+    user: req.user,
+    marksReview: JSON.stringify(marksAdd),
+    markList: JSON.stringify("modeReview")
+  })
+  
+  
 });
 
 module.exports = router;

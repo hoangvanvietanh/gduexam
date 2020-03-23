@@ -63,13 +63,15 @@ table {
 .tiendo {
     bottom: 0;
     overflow-y: scroll;
-    height: 40vh;
+    height: 50vh;
 }
 
 .bailam {
     bottom: 0;
     overflow-y: scroll;
-    height: 60vh;
+    height: 80vh;
+    overflow-x: hidden;
+    max-width: 100%;
 }
 
 .hidden_button {

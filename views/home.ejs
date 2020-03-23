@@ -11,12 +11,22 @@
     <link rel="stylesheet" href="/css/Google-Style-Text-Input.css">
     <link rel="stylesheet" href="/css/select.css">
     <link rel="stylesheet" href="/css/Studious-selectbox.css">
+    <link rel="stylesheet" type="text/css" href="/css/table.css">
+    <style>
+        @font-face {
+            font-family: 'Raleway';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Raleway'), local('Raleway-Regular'), url(https://fonts.gstatic.com/s/raleway/v14/1Ptug8zYS_SKggPNyC0ISg.ttf) format('truetype');
+        }
+    </style>
 </head>
 
 <body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
     <!--Navbar -->
-    <nav class="mb-1 navbar navbar-expand-lg navbar-dark orange lighten-1" style="padding: 5px;background-color: #002f69">
-        <a class="navbar-brand" href="#"><b>Gia Dinh University</b></a>
+    <nav class="mb-1 navbar navbar-expand-lg navbar-dark orange lighten-1"
+        style="padding: 5px;background-color: #002f69">
+        <a class="navbar-brand" href="#"><b>Đại học Gia Định</b></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
             aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -26,12 +36,12 @@
                 <li class="nav-item avatar">
                     <a class="nav-link p-0" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
-                        <img src="http://graph.facebook.com/67563683055/picture?type=square"
+                        <img src="http://graph.facebook.com/<%=user.facebook.id%>/picture?type=square"
                             onerror="this.onerror=null;this.src='/img/student.png';" id="imageid"
                             class="rounded-circle z-depth-0" alt="avatar image" height="35">
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
-                        aria-labelledby="navbarDropdownMenuLink-55">
+                        aria-labelledby="navbarDropdownMenuLink-55" style="border-radius: 0px;">
                         <a class="dropdown-item" href="#" data-toggle="modal" data-target=".bd-example-modal-xl">Tài
                             khoản</a>
                         <button type="button" class="dropdown-item" onclick="logout('<%= user.student_code %>')">Đăng
@@ -42,181 +52,236 @@
         </div>
     </nav>
     <!--/.Navbar -->
-    <div class="container">
-        <a name="" id="" class="btn btn-primary" href="/exam/manage_exam" style="width: 100%;" role="button">Tham gia
-            thi</a>
-            <a name="" id="" class="btn btn-primary" href="/exam/trainning" style="width: 100%;margin-top: 5px;" role="button">Thi thử</a>
+    <div class="container" style=" box-shadow: -50px 0 200px -50px red, 50px 0 200px 0px #002f69;background-color: transparent;">
+        <!-- <a name="" id="" class="btn btn-primary" href="/exam/manage_exam" style="width: 100%;" role="button">Tham gia
+            thi</a> -->
         <div class="row">
-            <div class="col-sm-5">
+            <div class="col-sm-3 boxTrainning" >
                 <div>
-                    <h3 class="text-center">Thông tin cá nhân</h3>
+                    <h3 class="text-center" style="text-transform: uppercase;
+                    letter-spacing: 3px;
+                    font-size: 15px;margin-top: 25px;">Luyện đề tự do</h3>
                 </div>
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr></tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Họ tên</td>
-                                <td><%= user.full_name %></td>
-                            </tr>
-                            <tr>
-                                <td>Mã số sinh viên</td>
-                                <td><%= user.student_code %></td>
-                            </tr>
-                            <tr>
-                                <td>Lớp</td>
-                                <td><%= user.student_class.class_name %></td>
-                            </tr>
-                            <tr>
-                                <td>CMND</td>
-                                <td><%= user.identity_card_number %></td>
-                            </tr>
-                            <tr>
-                                <td>Giới tính</td>
-                                <td><%= user.sex %></td>
-                            </tr>
-                            <tr>
-                                <td>Ngày sinh</td>
-                                <td><%= user.date_of_birth %></td>
-                            </tr>
-                            <tr>
-                                <td>Nơi sinh</td>
-                                <td><%= user.place_of_birth %></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <form style="margin-top: 8px;">
+                    <div class="field"><select class="form-control"
+                            style="border: none;border-bottom: 1px solid #757575;" id="subject"
+                            onchange="chooseSubject()">
+                            <optgroup label="Chọn môn học" id="list_subject">
+
+                            </optgroup>
+                        </select></div>
+                </form>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="group">      
+                               <input class="input" style="margin-top: -16px;" type="number" id="timeOfExam" value="10"
+                                min="1" max="90" required>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                               <label class="label">Thời gian làm bài</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="group">      
+                               <input class="input" style="margin-top: -16px;" type="number" id="numberOfExam"
+                                onchange="checkNumberQuestions()" value="30" min="1" max="50" required>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                               <label class="label">Số câu hỏi</label>
+                        </div>
+                    </div>
                 </div>
+                <form style="margin-top: 8px;">
+                    <div class="field"><select class="form-control"
+                            style="border: none;border-bottom: 1px solid #757575;border-radius: 0;" id="examRate">
+                            <optgroup label="Chia tỉ lệ câu hỏi">
+                                <option value="1" selected>60% Dễ-25% Trung bình-15% Khó
+                                </option>
+                                <option value="2">50% Dễ-35% Trung bình-15% Khó</option>
+                                <option value="3">40% Dễ-40% Trung bình-20% Khó</option>
+                                <option value="4">30% Dễ-35% Trung bình-35% Khó</option>
+                            </optgroup>
+                        </select></div>
+                </form>
+                <button style="width: 100%;margin-top: 30px;border-radius: 0px;" type="button" id="buttonStartTrainning"
+                    class="btn btn-success">Bắt đầu luyện tập</button>
             </div>
-            <div class="col-sm-7">
-                <h3 class="text-center">Điểm</h3>
-                <div class="table-responsive">
-                    <table class="table fixed_header">
-                        <thead>
-                            <tr>
-                                <th>STT</th>
-                                <th>Môn học</th>
-                                <th>Điểm</th>
-                                <th>Học kỳ</th>
-                                <th>Ngày thi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <% if(user.marks != undefined){ for(var i=user.marks.length-1; i>=0; i--) { var j = 0; %>
-                            <tr>
-                                <td><%=  j = i+1 %></td>
-                                <td><%= user.marks[i].subject %></td>
-                                <td><%= user.marks[i].exam_score %></td>
-                                <td><%= user.marks[i].semester %></td>
-                                <td><%= user.marks[i].date %></td>
-                            </tr>
-                            <% } }%>
-                        </tbody>
-                    </table>
+            <div class="col-sm-9" style="padding-right: 0px; padding-left: 0px;" >
+                <div class="limiter" >
+                    <div class="container-table100">
+                        <div class="wrap-table100">
+                            <div class="table100 ver1 m-b-110">
+                                <div class="table100-head">
+                                    <h3 class="text-center" style="text-transform: uppercase;
+                    letter-spacing: 3px;
+                    ">Lịch sử luyện đề</h3>
+                                    <table>
+                                        <thead>
+                                            <tr class="row100 head">
+                                                <th class="cell100 column1">Stt</th>
+                                                <th class="cell100 column2">Môn học</th>
+                                                <th class="cell100 column3">Điểm</th>
+                                                <th class="cell100 column4">Ngày kiểm tra</th>
+                                                <th class="cell100 column5">Xem bài thi</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div class="table100-body">
+                                    <table>
+                                        <tbody>
+                                            <% if(user.marks){var j = 1; for(var i=user.marks.length-1; i>=0; i--) {  %>
+                                            <tr class="row100 body">
+                                                <td class="cell100 column1"><%=  j ++ %></td>
+                                                <td class="cell100 column2"><%= user.marks[i].examData.subject %>
+                                                </td>
+                                                <td class="cell100 column3"><%= user.marks[i].examData.exam_score %>
+                                                </td>
+                                                <td class="cell100 column4"><%= user.marks[i].examData.date %></td>
+                                                <td class="cell100 column5"><button type="button" class="btn btn-info"
+                                                        style="border-radius: 0px;"
+                                                        onclick="reviewExam('<%= user.marks[i].examData.exam_code%>')">Xem
+                                                        bài thi</button></td>
+                                            </tr>
+                                            <% } }%>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>
     <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
+        <div class="modal-dialog modal-xl" style="box-shadow: -50px 0 200px -50px #504bff, 50px 0 200px -50px #4cfa63;">
+            <div class="modal-content" style="border-radius: 0px;border: none;">
                 <!-- <form action="/admin/updateUsers" method="POST"> -->
-                <div class="modal-header">
+                <!-- <div class="modal-header">
                     <h3 class="modal-title" id="my-modal-title">Xin chào <%=user.full_name%></h3>
                     <button class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                </div>
+                </div> -->
                 <div class="modal-body">
-
+                    <div style="text-align: center;">
+                        <h4>Thông tin cá nhân</h4>
+                        <hr />
+                    </div>
                     <div class="row">
-                        <div class="col">
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <img src="https://dv-media-vietanh.herokuapp.com/<%= user.student_code %>.png" id="Th_Hinh_Xem_truoc"
-                                    style="width:10rem" />
-                                <input id="Th_file" type="file" onchange="Xem_truoc_Media()" accept="image/png" />
+                                <img src="http://graph.facebook.com/<%=user.facebook.id%>/picture?type=square"
+                                onerror="this.onerror=null;this.src='/img/student.png';" id="Th_Hinh_Xem_truoc" style="width:100%" />
                             </div>
+                            <input id="Th_file" type="file" onchange="Xem_truoc_Media()" accept="image/png" />
                         </div>
-                        <div class="col">
-                            <div class="group" style="margin-bottom: 45px;"><input id="fullName" class="input"
-                                    type="text" name="fullName" value="<%= user.full_name %>" required /><span
-                                    class="highlight"></span><span class="bar"></span><label class="label">Họ
-                                    tên</label>
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="group" style="margin-bottom: 45px;"><input id="fullName" class="input"
+                                            type="text" name="fullName" value="<%= user.full_name %>" required /><span
+                                            class="highlight"></span><span class="bar"></span><label class="label">Họ
+                                            tên</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="group" style="margin-bottom: 45px;"><input id="identityCardNumber"
+                                            class="input" type="number" name="identityCardNumber"
+                                            value="<%= user.identity_card_number %>" required /><span
+                                            class="highlight"></span><span class="bar"></span><label class="label">Số
+                                            chứng
+                                            minh nhân dân</label>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="group" style="margin-bottom: 45px;"><input id="identityCardNumber" class="input"
-                                    type="number" name="identityCardNumber" value="<%= user.identity_card_number %>"
-                                    required /><span class="highlight"></span><span class="bar"></span><label
-                                    class="label">Số chứng
-                                    minh nhân dân</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="group" style="margin-bottom: 45px;"><input id="studentCode"
+                                            class="input" type="number" name="studentCode"
+                                            value="<%= user.student_code %>" required /><span
+                                            class="highlight"></span><span class="bar"></span><label class="label">ID</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="group"><input id="address" class="input" type="address" name="address"
+                                            value="<%= user.address %>" required /><span class="highlight"></span><span
+                                            class="bar"></span><label class="label">Địa
+                                            chỉ</label>
+                                    </div>
+
+                                </div>
                             </div>
-                        </div>
-                        <div class="col">
-                            <div class="group" style="margin-bottom: 45px;"><input id="studentCode" class="input"
-                                    type="number" name="studentCode" value="<%= user.student_code %>" required /><span
-                                    class="highlight"></span><span class="bar"></span><label class="label">Mã số sinh
-                                    viên</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="group" style="margin-bottom: 45px;"><input id="placeOfBirth"
+                                            class="input" type="text" name="placeOfBirth"
+                                            value="<%= user.place_of_birth %>" required /><span
+                                            class="highlight"></span><span class="bar"></span><label class="label">Nơi
+                                            sinh</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div style="margin-top: 8px;">
+                                        <div class="field"><select class="form-control" id="sex" name="sex"
+                                                style="border: none;border-bottom: 1px solid #757575;border-radius: 0;">
+                                                <optgroup label="Chọn giới tính">
+                                                    <option value="Nam" selected>Nam</option>
+                                                    <option value="Nữ">Nữ</option>
+                                                </optgroup>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="group"><input id="address" class="input" type="address" name="address"
-                                    value="<%= user.address %>" required /><span class="highlight"></span><span
-                                    class="bar"></span><label class="label">Địa
-                                    chỉ</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="group" style="margin-bottom: 45px;"><input data-date=""
+                                            data-date-format="DD MMMM YYYY" id="dateOfBirth" class="input" type="date"
+                                            value="2019-01-01" name="dateOfBirth" required /><span
+                                            class="highlight"></span><span class="bar"></span><label class="label">Ngày
+                                            sinh</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <!-- <button type="submit" style="width: 100%;border-radius: 0px;"
+                                        class="btn btn-success" id="btnUpdateAccount">Cập nhật</button> -->
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="submit" style="width: 100%;border-radius: 0px;" class="btn btn-danger"
+                                        data-dismiss="modal" aria-label="Close">Thoát</button>
+                                </div>
+
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-
-                        <div class="col">
-                            <div class="group" style="margin-bottom: 45px;"><input id="placeOfBirth" class="input"
-                                    type="text" name="placeOfBirth" value="<%= user.place_of_birth %>" required /><span
-                                    class="highlight"></span><span class="bar"></span><label class="label">Nơi
-                                    sinh</label>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div style="margin-top: 8px;">
-                                <div class="field"><select class="form-control" id="sex" name="sex"
-                                        style="border: none;border-bottom: 1px solid #757575;border-radius: 0;">
-                                        <optgroup label="Chọn giới tính">
-                                            <option value="Nam" selected>Nam</option>
-                                            <option value="Nữ">Nữ</option>
-                                        </optgroup>
-                                    </select></div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="group" style="margin-bottom: 45px;"><input data-date=""
-                                    data-date-format="DD MMMM YYYY" id="dateOfBirth" class="input" type="date"
-                                    value="2019-01-01" name="dateOfBirth" required /><span
-                                    class="highlight"></span><span class="bar"></span><label class="label">Ngày
-                                    sinh</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-
-
-
-                    </div>
-
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" style="width: 100%;" class="btn btn-primary" id="btnUpdateAccount">Cập
-                        nhật</button>
-                </div>
+                <!-- <div class="modal-footer">
+                    
+                </div> -->
                 <!-- </form> -->
             </div>
         </div>
     </div>
+    <input type="hidden" id="myListMarks" value="<%=markList%>" />
     <script src="/js/jquery-3.3.1.slim.min.js"></script>
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/business/home.js"></script>
     <script src="/js/Studious-selectbox.js"></script>
+    <script src="/business/dataForAdmin.js"></script>
+    <script src="/business/trainning.js"></script>
     <script>
+        var marksList = JSON.parse(myListMarks.value);
+        function reviewExam(examCode) {
+            localStorage.setItem("examCodeReview", examCode);
+            document.location.href = "/exam/review_exam";
+        }
+        localStorage.setItem("student_code", '<%= user.student_code %>')
         var studentCode = '<%= user.student_code %>';
         sex.value = '<%= user.sex %>';
         //dateOfBirth.value = '<%= user.date_of_birth %>';
@@ -225,18 +290,20 @@
             var reader = new FileReader();
             reader.onload = function (e) {
                 Th_Hinh_Xem_truoc.src = e.target.result;
-                console.log(e.target.result)
+                //console.log(e.target.result)
             }
             reader.readAsDataURL(Th_file.files[0]);
         }
 
+        localStorage.setItem("myListMarks", myListMarks.value);
+        document.getElementById("myListMarks").remove();
         btnUpdateAccount.onclick = () => {
             var Chuoi_nhi_phan = ""
             var Ten_Hinh = `${studentCode}.png`
             Chuoi_nhi_phan = Th_Hinh_Xem_truoc.src;
             var Doi_tuong = { "Ten": Ten_Hinh, "Chuoi_nhi_phan": Chuoi_nhi_phan }
             Kq = Ghi_Media(Doi_tuong)
-            document.location.href="/users/home";
+            document.location.href = "/users/home";
         }
     </script>
 </body>
