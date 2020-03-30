@@ -18,14 +18,14 @@ router.get('/users/sign-up', forwardAuthenticated, (req, res) => res.render('sig
 
 router.get('/exam', forwardAuthenticated, (req, res) => res.render('login'));
 
-router.get('/auth/facebook', passport.authenticate('facebook', {scope: ['email']}));
-    // xử lý sau khi user cho phép xác thực với facebook
-    router.get('/auth/facebook/callback',
-        passport.authenticate('facebook', {
-            successRedirect: '/users/home',
-            failureRedirect: '/'
-        })
-    );
+router.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email'] }));
+// xử lý sau khi user cho phép xác thực với facebook
+router.get('/auth/facebook/callback',
+  passport.authenticate('facebook', {
+    successRedirect: '/users/home',
+    failureRedirect: '/'
+  })
+);
 
 //router.get('/admin', ensureAuthenticatedAdmin, (req, res) => res.render('adhome'));
 router.get('/admin', ensureAuthenticatedAdmin, (req, res) =>
@@ -54,7 +54,7 @@ router.get('/users/home', ensureAuthenticated, (req, res) =>
   res.render('home', {
     user: req.user,
     markList: JSON.stringify(req.user.marks),
-    listMarksRank : ListRankMarks
+    listMarksRank: ListRankMarks
   })
 );
 
@@ -263,13 +263,57 @@ router.post('/exam/review_exam', (req, res, next) => {
   var marksAdd = JSON.parse(req.body.marks);
   req.user.marks.push(marksAdd);
 
+  const info = {};
+  info.ho_ten = req.user.full_name;
+  info.email = req.user.facebook.email;
+  info.exam_score = marksAdd.examData.exam_score;
+  var dateTime = marksAdd.examData.date.split(" ");
+  var date = dateTime[0].split("-");
+  var time = dateTime[1].split(":");
+  info.day = date[2];
+  info.month = date[1];
+  info.hour = time[0];
+  info.minute = time[1];
+  info.seconds = time[2];
+
+  if (marksAdd.subject == "Vật lý") {
+    ListRankMarks.listMarksPhysical.push(info)
+    sortRank(ListRankMarks.listMarksPhysical);
+  }
+  else if (marksAdd.subject == "Hóa Học") {
+    ListRankMarks.listMarksChemistry.push(info)
+    sortRank(ListRankMarks.listMarksChemistry);
+  }
+  else if (marksAdd.subject == "Tiếng Anh") {
+    ListRankMarks.listMarksEnglish.push(info)
+    sortRank(ListRankMarks.listMarksEnglish);
+  }
+  else {
+    ListRankMarks.listMarksMath.push(info)
+    sortRank(ListRankMarks.listMarksMath);
+  }
   res.render('reviewExam', {
     user: req.user,
     marksReview: JSON.stringify(marksAdd),
     markList: JSON.stringify("modeReview")
   })
-  
-  
+
+
 });
 
+function sortRank(array) {
+  var n = array.length;
+  var a = array;
+  var tg;
+  for(var i = 0; i < n - 1; i++){
+      for(var j = i + 1; j < n; j++){
+          if(a[i].exam_score < a[j].exam_score){
+              // Hoan vi 2 so a[i] va a[j]
+              tg = a[i];
+              a[i] = a[j];
+              a[j] = tg;        
+          }
+      }
+  }    
+}
 module.exports = router;
