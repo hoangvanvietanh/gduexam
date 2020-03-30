@@ -53,3 +53,4 @@ app.use('/admin', require('./routes/admin.js'));
 const PORT = process.env.PORT || 5000;
 var httpsServer = https.createServer(options, app);
 httpsServer.listen(PORT, console.log(`Server started on port ${PORT}`));
+//app.listen(PORT, console.log(`Server started on port ${PORT}`));

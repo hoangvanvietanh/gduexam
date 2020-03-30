@@ -26,6 +26,7 @@
     <!--Navbar -->
     <nav class="mb-1 navbar navbar-expand-lg navbar-dark orange lighten-1"
         style="padding: 5px;background-color: #002f69">
+        <a class="navbar-brand" href="#"><img style="width: 25px;" src="/img/logoGiaDinh.png"></a>
         <a class="navbar-brand" href="#"><b>Đại học Gia Định</b></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
             aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,11 +53,12 @@
         </div>
     </nav>
     <!--/.Navbar -->
-    <div class="container" style=" box-shadow: -50px 0 200px -50px red, 50px 0 200px 0px #002f69;background-color: transparent;">
+    <div class="container"
+        style=" box-shadow: -50px 0 200px -50px red, 50px 0 200px 0px #002f69;background-color: transparent;">
         <!-- <a name="" id="" class="btn btn-primary" href="/exam/manage_exam" style="width: 100%;" role="button">Tham gia
             thi</a> -->
         <div class="row">
-            <div class="col-sm-3 boxTrainning" >
+            <div class="col-sm-3 boxTrainning">
                 <div>
                     <h3 class="text-center" style="text-transform: uppercase;
                     letter-spacing: 3px;
@@ -103,11 +105,11 @@
                             </optgroup>
                         </select></div>
                 </form>
-                <button style="width: 100%;margin-top: 30px;border-radius: 0px;" type="button" id="buttonStartTrainning"
-                    class="btn btn-success">Bắt đầu luyện tập</button>
+                <button style="width: 100%;margin-top: 30px;border-radius: 0px;background-color: #c4820e;color: white;"
+                    type="button" id="buttonStartTrainning" class="btn">Bắt đầu luyện tập</button>
             </div>
-            <div class="col-sm-9" style="padding-right: 0px; padding-left: 0px;" >
-                <div class="limiter" >
+            <div class="col-sm-9" style="padding-right: 0px; padding-left: 0px;">
+                <div class="limiter">
                     <div class="container-table100">
                         <div class="wrap-table100">
                             <div class="table100 ver1 m-b-110">
@@ -138,8 +140,8 @@
                                                 <td class="cell100 column3"><%= user.marks[i].examData.exam_score %>
                                                 </td>
                                                 <td class="cell100 column4"><%= user.marks[i].examData.date %></td>
-                                                <td class="cell100 column5"><button type="button" class="btn btn-info"
-                                                        style="border-radius: 0px;"
+                                                <td class="cell100 column5"><button type="button" class="btn"
+                                                        style="border-radius: 0px;background-color: #c4820e;color: white;"
                                                         onclick="reviewExam('<%= user.marks[i].examData.exam_code%>')">Xem
                                                         bài thi</button></td>
                                             </tr>
@@ -153,6 +155,123 @@
                 </div>
             </div>
         </div>
+        <div style="text-align: center;margin-top: 5px;">
+            <h4>Bảng xếp hạng</h4>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div style="text-align: center;">
+                    <h6>Toán</h6>
+                </div>
+                <div style="height: 200px;overflow-y: scroll;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Hạng</th>
+                                <th>Họ tên</th>
+                                <th>Email</th>
+                                <th>Điểm</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%var j = 1; for(var i =0; i< listMarksRank.listMarksMath.length; i++){ %>
+                            <tr>
+                                <td scope="row"><%=  j ++ %></td>
+                                <td ><%=listMarksRank.listMarksMath[i].ho_ten %></td>
+                                <td><%=listMarksRank.listMarksMath[i].email %></td>
+                                <td><%=listMarksRank.listMarksMath[i].exam_score %></td>
+                            </tr>
+                            <%}%>
+                    </tbody>
+                </table>
+            </div>
+            </div>
+            <div class="col-md-6">
+                <div style="text-align: center;">
+                    <h6>Lý</h6>
+                </div>
+                <div style="height: 200px;overflow-y: scroll;">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Hạng</th>
+                            <th>Họ tên</th>
+                            <th>Email</th>
+                            <th>Điểm</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody >
+                        
+                        <%var j = 1;  for(var i =0; i< listMarksRank.listMarksPhysical.length; i++){ %>
+                            <tr>
+                                <td scope="row"><%=  j ++ %></td>
+                                <td><%=listMarksRank.listMarksPhysical[i].ho_ten %></td>
+                                <td><%=listMarksRank.listMarksPhysical[i].email %></td>
+                                <td><%=listMarksRank.listMarksPhysical[i].exam_score %></td>
+                            </tr>
+                            <%}%>
+                        
+                    </tbody>
+                
+                </table>
+            </div>
+            </div>
+            <div class="col-md-6">
+                <div style="text-align: center;">
+                    <h6>Hóa</h6>
+                </div>
+                <div style="height: 200px;overflow-y: scroll;">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Hạng</th>
+                            <th>Họ tên</th>
+                            <th>Email</th>
+                            <th>Điểm</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%var j = 1;  for(var i =0; i< listMarksRank.listMarksChemistry.length; i++){ %>
+                            <tr>
+                                <td scope="row"><%=  j ++ %></td>
+                                <td><%=listMarksRank.listMarksChemistry[i].ho_ten %></td>
+                                <td><%=listMarksRank.listMarksChemistry[i].email %></td>
+                                <td><%=listMarksRank.listMarksChemistry[i].exam_score %></td>
+                            </tr>
+                            <%}%>
+                    </tbody>
+                </table>
+            </div>
+            </div>
+            <div class="col-md-6">
+                <div style="text-align: center;">
+                    <h6>Tiếng Anh</h6>
+                </div>
+                <div style="height: 200px;overflow-y: scroll;">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Hạng</th>
+                            <th>Họ tên</th>
+                            <th>Email</th>
+                            <th>Điểm</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%var j = 1;  for(var i =0; i< listMarksRank.listMarksEnglish.length; i++){ %>
+                            <tr>
+                                <td scope="row"><%=  j ++ %></td>
+                                <td><%=listMarksRank.listMarksEnglish[i].ho_ten %></td>
+                                <td><%=listMarksRank.listMarksEnglish[i].email %></td>
+                                <td><%=listMarksRank.listMarksEnglish[i].exam_score %></td>
+                            </tr>
+                            <%}%>
+                    </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
     </div>
     <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
         aria-hidden="true">
@@ -161,9 +280,9 @@
                 <!-- <form action="/admin/updateUsers" method="POST"> -->
                 <!-- <div class="modal-header">
                     <h3 class="modal-title" id="my-modal-title">Xin chào <%=user.full_name%></h3>
-                    <button class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                            <button class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                 </div> -->
                 <div class="modal-body">
                     <div style="text-align: center;">
@@ -174,7 +293,8 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <img src="http://graph.facebook.com/<%=user.facebook.id%>/picture?type=square"
-                                onerror="this.onerror=null;this.src='/img/student.png';" id="Th_Hinh_Xem_truoc" style="width:100%" />
+                                    onerror="this.onerror=null;this.src='/img/student.png';" id="Th_Hinh_Xem_truoc"
+                                    style="width:100%" />
                             </div>
                             <input id="Th_file" type="file" onchange="Xem_truoc_Media()" accept="image/png" />
                         </div>
@@ -202,7 +322,8 @@
                                     <div class="group" style="margin-bottom: 45px;"><input id="studentCode"
                                             class="input" type="number" name="studentCode"
                                             value="<%= user.student_code %>" required /><span
-                                            class="highlight"></span><span class="bar"></span><label class="label">ID</label>
+                                            class="highlight"></span><span class="bar"></span><label
+                                            class="label">ID</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -248,8 +369,8 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <!-- <button type="submit" style="width: 100%;border-radius: 0px;"
-                                        class="btn btn-success" id="btnUpdateAccount">Cập nhật</button> -->
+                                    <button type="hidden" style="width: 100%;border-radius: 0px;"
+                                        class="btn btn-success" id="btnUpdateAccount">Cập nhật</button>
                                 </div>
                                 <div class="col-md-6">
                                     <button type="submit" style="width: 100%;border-radius: 0px;" class="btn btn-danger"

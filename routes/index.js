@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const ListStudents = require('../models/User');
+const ListRankMarks = require('../models/ListMarksRank');
 const ListExams = require('../models/Exam');
 const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 const { ensureAuthenticatedAdmin, forwardAuthenticatedAdmin } = require('../config/authForAdmin');
@@ -52,7 +53,8 @@ router.get('/exam/take_exam', ensureAuthenticated, (req, res) =>
 router.get('/users/home', ensureAuthenticated, (req, res) =>
   res.render('home', {
     user: req.user,
-    markList: JSON.stringify(req.user.marks)
+    markList: JSON.stringify(req.user.marks),
+    listMarksRank : ListRankMarks
   })
 );
 

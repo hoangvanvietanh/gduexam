@@ -43,8 +43,9 @@
                 <li class="nav-item avatar">
                     <a class="nav-link p-0" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
-                        <img src="http://graph.facebook.com/<%=user.facebook.id%>/picture?type=square" onerror="this.onerror=null;this.src='/img/student.png';"
-                            id="imageid" class="rounded-circle z-depth-0" alt="avatar image" height="35">
+                        <img src="http://graph.facebook.com/<%=user.facebook.id%>/picture?type=square"
+                            onerror="this.onerror=null;this.src='/img/student.png';" id="imageid"
+                            class="rounded-circle z-depth-0" alt="avatar image" height="35">
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
                         aria-labelledby="navbarDropdownMenuLink-55">
@@ -170,14 +171,25 @@
                     <h2 class="modal-title w-100">Nội quy thi</h2>
                 </div>
                 <div class="modal-body" style="height: 88vh;">
-                    <div style="margin: auto;width: 60%;">
-                        <h4>1. Nghiêm túc thực hiện bài thi.</h4>
-                        <h4>2. Để tránh sai sót thí sinh không nên mở web ở nhiều tab, chỉ sử dụng 1 tab.</h4>
-                        <h4>3. Do chương trình đang trong quá trình chạy thử nghiệm.</h4>
-                        <h4>4. Các bạn có thể góp ý cho mình tại gmail: hoangvanvietanh@gmail.com.</h4>
-                        <h4>Chúc các bạn thí sinh thi tốt ^^</h4>
-                        <button type="button" style="width:100%" class="btn btn-primary" id="noiQuyThi"
-                            data-dismiss="modal">Bắt đầu làm bài thi</button>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <!-- <img src="/img/bannerqc.jpg" style="width: 100%;" alt=""> -->
+                        </div>
+                        <div class="col-md-6">
+                            
+                                <img src="/img/giadinhbanner.jpg" style="width: 100%;" alt="">
+                                <!-- <h4>1. Nghiêm túc thực hiện bài thi.</h4>
+                                <h4>2. Để tránh sai sót thí sinh không nên mở web ở nhiều tab, chỉ sử dụng 1 tab.</h4>
+                                <h4>3. Do chương trình đang trong quá trình chạy thử nghiệm.</h4>
+                                <h4>4. Các bạn có thể góp ý cho mình tại gmail: hoangvanvietanh@gmail.com.</h4>
+                                <h4>Chúc các bạn thí sinh thi tốt ^^</h4> -->
+                                <button type="button" style="width:100%" class="btn btn-primary" id="noiQuyThi"
+                                    data-dismiss="modal">Bắt đầu làm bài thi</button>
+                            
+                        </div>
+                        <div class="col-md-3">
+                            <!-- <img src="/img/bannerqc.jpg" style="width: 100%;" alt=""> -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -194,8 +206,7 @@
     <script src="/business/take_exam.js"></script>
     <script src="/js/jspdf.min.js"></script>
     <script>
-        if(time_count.innerHTML == "0:0" || thoi_gian.innerHTML == "" || ngay_lam.innerHTML == "")
-        {
+        if (time_count.innerHTML == "0:0" || thoi_gian.innerHTML == "" || ngay_lam.innerHTML == "") {
             localStorage.clear();
             document.location.href = "/users/home";
         }
