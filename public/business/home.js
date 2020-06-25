@@ -1,4 +1,4 @@
-var Dia_chi_Dich_vu = "https://daihocgiadinh.com.vn/"
+var Dia_chi_Dich_vu = "https://gduexam-service.herokuapp.com/"
 var Dia_chi_Media = "https://dv-media-vietanh.herokuapp.com/"
 
 var studentCode = localStorage.getItem("student_code");
@@ -47,7 +47,7 @@ function Ghi_nhat_ky(Nhat_ky) {
 }
 
 function getConnectionWebSocket(studentCode) {
-    var connection = new WebSocket("wss://daihocgiadinh.com.vn/");
+    var connection = new WebSocket("wss://gduexam-service.herokuapp.com/");
     //var connection = new WebSocket("ws://localhost:1200/");
     connection.onopen = function (message) {
         connection.send(studentCode);

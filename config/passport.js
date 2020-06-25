@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 var configAuth = require('./config');
 // Load User model
 const ListStudents = require('../models/User');
-var Dia_chi_Dich_vu = "http://172.16.26.26:1300/"
+var Dia_chi_Dich_vu = "https://gduexam-service.herokuapp.com/"
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 var FacebookStrategy = require('passport-facebook').Strategy;
 

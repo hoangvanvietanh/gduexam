@@ -1,4 +1,4 @@
-var Dia_chi_Dich_vu = "https://daihocgiadinh.com.vn/"
+var Dia_chi_Dich_vu = "https://gduexam-service.herokuapp.com/"
 var Dia_chi_Media = "https://dv-media-vietanh.herokuapp.com/"
 
 var questionListOfData = Doc_Thu_vien_Cau_hoi().Danh_sach_Cau_hoi;

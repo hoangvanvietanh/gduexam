@@ -5,10 +5,10 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const fs = require('fs');
-const options = {
-  key: fs.readFileSync('/etc/letsencrypt/live/daihocgiadinh.vn/privkey.pem'),
-  cert: fs.readFileSync('/etc/letsencrypt/live/daihocgiadinh.vn/fullchain.pem')
-};
+// const options = {
+//   key: fs.readFileSync('/etc/letsencrypt/live/daihocgiadinh.vn/privkey.pem'),
+//   cert: fs.readFileSync('/etc/letsencrypt/live/daihocgiadinh.vn/fullchain.pem')
+// };
 const app = express();
 // Passport Config
 require('./config/passport')(passport);
@@ -51,6 +51,6 @@ app.use('/users', require('./routes/users.js'));
 app.use('/admin', require('./routes/admin.js'));
 
 const PORT = process.env.PORT || 5000;
-var httpsServer = https.createServer(options, app);
-httpsServer.listen(PORT, console.log(`Server started on port ${PORT}`));
-//app.listen(PORT, console.log(`Server started on port ${PORT}`));
+// var httpsServer = https.createServer(options, app);
+// httpsServer.listen(PORT, console.log(`Server started on port ${PORT}`));
+app.listen(PORT, console.log(`Server started on port ${PORT}`));
